@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/28 18:34:03 by marykman          #+#    #+#              #
-#    Updated: 2023/10/28 19:02:11 by marykman         ###   ########.fr        #
+#    Updated: 2023/11/01 23:54:10 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ PREFIX			=	[${LIGHT_BLUE}${NAME}${RESET}]\t
 # ---------------------------------Compilation---------------------------------
 
 CC					:=	@gcc
-CFLAGS				:=	-Wall -Wextra -Werror
+CFLAGS				:=	-Wall -Wextra -Werror -g -fsanitize=address
 RM					:=	@rm -f
 
 # ---------------------------------Librairies----------------------------------
@@ -41,11 +41,16 @@ LIBRARIES			:=	-L./${FT_FOLDER} -lft \
 # --------------------------------Source files---------------------------------
 
 NAME				:=	minishell
-FILES				:=	main.c
-OBJS				:=	$(addprefix objs/, ${FILES:.c=.o})
-SRCS				:=	$(addprefix srcs/, ${FILES})
+
 FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
+
+FILES_MAIN			:=	main.c \
+						init.c
+FILES_ENV			:=	init.c \
+						getbyname.c
+OBJS				:=	$(addprefix objs/, ${FILES_MAIN:.c=.o})
+OBJS				+=	$(addprefix objs/env/, ${FILES_ENV:.c=.o})
 
 # -----------------------------------Rules-------------------------------------
 
