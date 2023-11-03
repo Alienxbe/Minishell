@@ -6,11 +6,12 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:29:34 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/11/03 13:07:17 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:09:18 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
+#include <stdlib.h>
 
 static int	nb_args(char **args)
 {
@@ -31,5 +32,6 @@ int	ft_exit(char **args)
 		ft_printf("exit: too many arguments\n");
 		return (1);
 	}
-	return ((unsigned int)ft_atoi(args[0]) % 256);
+	exit((unsigned int)ft_atoi(args[0]) % 256);
+	return (0);
 }

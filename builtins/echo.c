@@ -6,7 +6,7 @@
 /*   By: xadabunu <xadabunu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:21:57 by xadabunu          #+#    #+#             */
-/*   Updated: 2023/11/03 13:19:22 by xadabunu         ###   ########.fr       */
+/*   Updated: 2023/11/03 14:11:32 by xadabunu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,21 @@ static bool	check_flag(const char **cmd, int *pos)
 	return (has_flag);
 }
 
-static int	write_error(void)
-{
-	write(STDOUT_FILENO, "write: no space to write\n", 25);
-	return (1);
-}
-
 int	ft_echo(const char **cmd)
 {
 	bool	has_flag;
 	int		pos;
-	int		ret;
 
 	pos = 1;
-	ret = 0;
 	has_flag = check_flag(cmd, &pos);
 	while (cmd[pos])
 	{
-		ret = write(STDOUT_FILENO, cmd[pos], ft_strlen(cmd[pos]));
-		if (ret == -1)
-			return (write_error());
+		printf("%s", cmd[pos]);
 		++pos;
+		if (cmd[pos])
+			printf("\n");
 	}
 	if (!has_flag)
-		ret = write(STDOUT_FILENO, "\n", 1);
-	if (ret == -1)
-		return (write_error());
+		write(STDOUT_FILENO, "\n", 1);
 	return (0);
 }
