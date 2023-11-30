@@ -15,23 +15,22 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-static int	is_flag(const char *word)
+static bool	is_flag(const char *word)
 {
 	int	i;
 
-	i = 1;
 	if (ft_strncmp("-n", word, 2) == 0)
 	{
 		i = 2;
 		while (word[i])
 		{
 			if (word[i] != 'n')
-				return (0);
+				return (false);
 			++i;
 		}
-		return (1);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
 
 static bool	check_flag(const char **cmd, int *pos)
