@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/01/23 22:21:05 by marykman         ###   ########.fr        #
+#    Updated: 2025/01/24 02:47:32 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,12 +23,12 @@ PREFIX			=	[${LIGHT_BLUE}${NAME}${RESET}]\t
 # ---------------------------------Compilation---------------------------------
 
 CC					:=	@gcc
-CFLAGS				:=	-Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS				:=	-Wall -Wextra -Werror
 RM					:=	@rm -f
 
 # ---------------------------------Librairies----------------------------------
 
-FT_FOLDER			:=	Libft
+FT_FOLDER			:=	libs/libft
 
 FT					:=	${FT_FOLDER}/libft.a
 
@@ -37,6 +37,7 @@ MAKE_FT				:=	@make -s -C ${FT_FOLDER}
 INCLUDES			:=	-I ${FT_FOLDER}/includes \
 						-I ./includes
 LIBRARIES			:=	-L./${FT_FOLDER} -lft \
+						-lreadline
 
 # --------------------------------Source files---------------------------------
 
