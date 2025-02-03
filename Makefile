@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/01/24 02:47:32 by marykman         ###   ########.fr        #
+#    Updated: 2025/01/30 13:02:00 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ NAME				:=	minishell
 FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
 
-FILES				:=	main.c
+FILES				:=	main.c \
+						parsing.c
 OBJS				:=	$(addprefix objs/, ${FILES:.c=.o})
 
 # -----------------------------------Rules-------------------------------------
