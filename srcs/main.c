@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/01/31 13:21:35 by marykman         ###   ########.fr       */
+/*   Updated: 2025/02/05 16:00:36 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int main(int argc, char const **argv, char const **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	// repl -> read eval print loop
 	while (1)
 	{
 		rl = readline(PROMPT_STR);
 		if (!rl)
 			exit(EXIT_FAILURE);
-		parsing(rl);
+		parsing(rl); // return a linked list of t_cmd
+		// execute
 		free(rl);
 	}
 	return (EXIT_SUCCESS);
