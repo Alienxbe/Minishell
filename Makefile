@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
+#    By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/02/07 09:42:54 by marykman         ###   ########.fr        #
+#    Updated: 2025/02/07 18:05:47 by vpramann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,8 @@ NAME				:=	minishell
 FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
 
-FILES				:=	main.c \
-						exec.c
+FILES				:=	main.c
+FILES_EXEC			:=	exec.c
 FILES_PARSING		:=	parsing.c \
 						cmd.c \
 						token.c \
@@ -56,6 +56,7 @@ FILES_PARSING		:=	parsing.c \
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
+SRCS				+=	$(addprefix srcs/exec/, ${FILES_EXEC})
 OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------

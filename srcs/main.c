@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/07 09:37:51 by marykman         ###   ########.fr       */
+/*   Updated: 2025/02/07 19:24:10 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	print_cmd(void *content)
 	ft_printf("====================\n\n");
 }
 
-int main(int argc, char const **argv, char const **envp)
+int main(int argc, char const **argv, char **envp)
 {
 	char	*rl;
 	t_list	*cmds;
@@ -68,6 +68,7 @@ int main(int argc, char const **argv, char const **envp)
 		cmds = parsing(rl); // return a linked list of t_cmd
 		ft_lstiter(cmds, &print_cmd);
 		// execute
+		exec(cmds, envp);
 		free(rl);
 	}
 	return (EXIT_SUCCESS);
