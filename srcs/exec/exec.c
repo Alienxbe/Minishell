@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/02/07 19:35:44 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/07 20:22:33 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,7 @@ void exec(t_list *cmds, char **envp)
 	if (!envp)
 		return ;
 	cmdss = find_cmds(cmds);
-	path = find_cmd_path(cmd->tokens->content, envp);
+	path = find_cmd_path(cmdss[0], envp);
 	if (execve(path, cmdss, envp) == -1)
-	{
 		free(path);
-		exit(1);
-    }
 }
