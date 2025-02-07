@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/01/30 13:02:00 by marykman         ###   ########.fr        #
+#    Updated: 2025/02/07 09:42:54 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,13 +47,21 @@ FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
 
 FILES				:=	main.c \
-						parsing.c
-OBJS				:=	$(addprefix objs/, ${FILES:.c=.o})
+						exec.c
+FILES_PARSING		:=	parsing.c \
+						cmd.c \
+						token.c \
+						redir.c \
+						utils.c
+
+SRCS				:=	$(addprefix srcs/, ${FILES})
+SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
+OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------
 
-objs/%.o:	srcs/%.c
-	${CC} ${CFLAGS} -c ${INCLUDES} $< -o $@
+objs/%.o:	srcs/%.c ${HEADERS}
+	${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
 	@echo "${PREFIX}Compilation of $<..."
 
 $(NAME):	${FT} ${OBJS} ${HEADERS}

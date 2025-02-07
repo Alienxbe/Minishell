@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/23 22:36:42 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/07 09:21:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
+/*   Updated: 2025/02/07 09:41:39 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "parsing.h"
 
-# include "ft_list.h"
+t_list	*parsing(const char *input)
+{
+	t_list	*cmds;
+	t_list	*new;
+	size_t	pos;
 
-# define PROMPT_STR	"\001\e[45m\002>>> \001\e[0m\e[33m\002 Minishell>$ \001\e[0m\002"
+	cmds = NULL;
+	pos = 0;
+	while (input[pos])
+	{
+		skip_spaces(input, &pos);
+		new = ft_lstnew(get_cmd(input, &pos));
+		if (!new)
+			return (NULL);	// EXIT
+		ft_lstadd_back(&cmds, new);
+		if (input[pos])
+			pos++;
+	}
+	return (cmds);
+}
 
-#endif

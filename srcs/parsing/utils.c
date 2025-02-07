@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
-/*   Updated: 2025/01/30 13:02:18 by marykman         ###   ########.fr       */
+/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
+/*   Updated: 2025/02/07 09:40:20 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "ft_printf.h"
-#include "minishell.h"
+#include <stddef.h>
+#include "ft_ctype.h"
 
-int	parsing(const char *input)
+void	skip_spaces(const char *input, size_t *pos)
 {
-	ft_printf("Paring `%s`\n", input);
-	return (EXIT_SUCCESS);
+	while (ft_isspace(input[*pos]))
+		(*pos)++;
 }
-
