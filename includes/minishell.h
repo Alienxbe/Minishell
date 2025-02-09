@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:36:42 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/07 20:50:01 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/09 19:12:42 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "ft_list.h"
 # include "ft_string.h"
 # include <unistd.h>
+# include <fcntl.h>
 # include "parsing.h"
 # include <stdlib.h>
 

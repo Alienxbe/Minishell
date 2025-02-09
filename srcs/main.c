@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/07 20:54:33 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/09 18:03:11 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,13 @@ int main(int argc, char const **argv, char **envp)
 {
 	char	*rl;
 	t_list	*cmds;
+	int i = 0;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
 	// repl -> read eval print loop
-	while (1)
+	while (i == 0)
 	{
 		rl = readline(PROMPT_STR);
 		if (!rl)
