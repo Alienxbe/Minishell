@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/09 18:03:11 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:59:26 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,7 @@ int main(int argc, char const **argv, char **envp)
 			exit(EXIT_FAILURE);
 		cmds = parsing(rl); // return a linked list of t_cmd
 		ft_lstiter(cmds, &print_cmd);
-		while (cmds)
-		{
-			exec_cmd(cmds, envp);
-			cmds = cmds->next;
-		}
+		exec_cmds(cmds, envp);
 		free(rl);
 	}
 	return (EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/02/09 19:14:56 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/10 16:52:51 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void exec_cmd(t_list *cmds, char **envp)
 	if (execve(path, cmdss, envp) == -1)
 	{
 		free(path);
-		free_tab(cmds);
+		free_tab(cmdss);
 	}
 }
 
@@ -125,24 +125,56 @@ void exec_cmds(t_list *cmds, char ** envp)
 {
 	t_cmd *cmd;
 	int pipe_fds[2];
-	t_list *redirs;
+	t_redir *redir;
 	int in;
 	int out;
+	int pid;
 
 	cmd = cmds->content;
+	in = -1;
+	out = -1;
 	if (cmd->redirs)
 	{
-		redirs = cmd->redirs->content;
-		if (access(redirs.filename, F_OK) == 0)
+		redir = cmd->redirs->content;
+		if (access(redir->filename, F_OK) == 0)
 		{
-			if (access(redirs.filename, R_OK) == 0)
-				in = open(redirs.filename, O_RDONLY, 0444);
+			if (access(redir->filename, R_OK) == 0)
+				in = open(redir->filename, O_RDONLY, 0444);
 			/*else
 				print_errors(3, NULL, file1);*/
 		}
 	}
 	else
 		dup2(in, STDIN_FILENO);
-	
-		
-}
+	for (int i = 0; i < ft_lstsize(cmds); i++)
+	{
+		dup2(in, 0);
+		close(in);
+		if (i == ft_lstsize(cmds) - 1)
+		{
+			if (cmd->redirs)
+			{
+				redir = cmd->redirs->content;
+				out = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0622);
+			}
+			else
+				out = dup(1);
+		}
+		else
+		{
+			pipe(pipe_fds);
+			in = pipe_fds[0];
+			out = pipe_fds[1];
+		}
+		dup2(out, 1);
+		close(out);
+		pid = fork();
+		if (pid == 0)
+			exec_cmd(cmds, envp);
+	}
+	dup2(in, 0);
+	dup2(out, 1);
+	close(in);
+	close(out);
+	cmds = cmds->next;
+}	
