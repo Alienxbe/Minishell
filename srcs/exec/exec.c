@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/02/10 19:27:36 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:20:51 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,12 @@ void exec_cmds(t_list *cmds, char ** envp)
 		pid = fork();
 		if (pid == 0)
 			exec_cmd(cmds, envp);
+		else
+			wait(0);
+		cmds = cmds->next;
 	}	
 	dup2(in, 0);
 	dup2(out, 1);
 	close(in);
 	close(out);
-	cmds = cmds->next;
 }	
