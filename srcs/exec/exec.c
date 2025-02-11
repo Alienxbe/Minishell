@@ -107,9 +107,7 @@ void exec_cmd(t_list *cmds, char **envp)
 {
     char	**cmdss;
 	char	*path;
-    t_cmd *cmd;
 
-    cmd = cmds->content;
 	if (!envp)
 		return ;
 	cmdss = find_cmds(cmds);
