@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:36:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/14 12:45:02 by marykman         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:09:06 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 
 t_list	*env_get_var(t_list *envl, const char *name);
 char	*env_get_var_content(t_list *envl, const char *name);
-void	env_set_var(void);
 
 // Utils
 t_list	*strs_to_lst(char **strs);
