@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/02/13 12:33:32 by marykman         ###   ########.fr        #
+#    Updated: 2025/02/14 14:36:29 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,13 @@ FILES_PARSING		:=	parsing.c \
 						utils.c
 FILES_ENV			:=	env.c \
 						utils.c
+FILES_BUILTINS		:=	
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
 SRCS				+=	$(addprefix srcs/exec/, ${FILES_EXEC})
 SRCS				+=	$(addprefix srcs/env/, ${FILES_ENV})
+SRCS				+=	$(addprefix srcs/builtins/, ${FILES_BUILTINS})
 OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------
