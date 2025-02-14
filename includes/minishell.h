@@ -30,6 +30,6 @@ char	*find_cmd_path(char *cmd, char **envp);
 char	*find_path(char **paths, char **cmds, int i);
 char    **find_cmds(t_list *cmds);
 void    exec_cmd(t_list *cmds, char **envp);
-void exec_cmds(t_list *cmds, char ** envp);
+void    exec_cmds(t_list *cmds, char ** envp);
 
 #endif

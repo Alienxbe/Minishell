@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/02/11 21:20:51 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:23:11 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ char **find_cmds(t_list *cmds)
     cmdss = malloc(sizeof(char *) * size);
     while (cmd->tokens)
     {
-        cmdss[i] = malloc (sizeof(char) * ft_strlen(cmd->tokens->content));
         cmdss[i] = cmd->tokens->content;
         i++;
         cmd->tokens = cmd->tokens->next;
@@ -114,10 +113,12 @@ void exec_cmd(t_list *cmds, char **envp)
 	path = find_cmd_path(cmdss[0], envp);
 	if (execve(path, cmdss, envp) == -1)
 	{
-		/*free(path);
-		free_tab(cmdss);*/
+		free(path);
+		free_tab(cmdss);
 		return ;
 	}
+	free(path);
+	free_tab(cmdss);
 }
 
 void exec_cmds(t_list *cmds, char ** envp)
@@ -127,7 +128,7 @@ void exec_cmds(t_list *cmds, char ** envp)
 	t_redir *redir;
 	int in;
 	int out;
-	int pid;
+	pid_t pid;
 
 	cmd = cmds->content;
 	in = -1;
@@ -171,7 +172,7 @@ void exec_cmds(t_list *cmds, char ** envp)
 		if (pid == 0)
 			exec_cmd(cmds, envp);
 		else
-			wait(0);
+			wait(NULL);
 		cmds = cmds->next;
 	}	
 	dup2(in, 0);
