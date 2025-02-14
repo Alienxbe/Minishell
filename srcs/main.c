@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/10 16:59:26 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:44:29 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include <readline/history.h>
 #include "ft_printf.h"
 #include "parsing.h"
+#include "env.h"
 #include "minishell.h"
+#include "ft_colors.h"
 
 static void	print_token(void *content)
 {
@@ -55,15 +57,21 @@ int main(int argc, char const **argv, char **envp)
 {
 	char	*rl;
 	t_list	*cmds;
+	t_list	*envl;
 	int i = 0;
+	char	*prompt;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	envl = strs_to_lst(envp);
+	// printf("%s\n", env_get_var_content(envl, "PWD"));
 	// repl -> read eval print loop
 	while (i == 0)
 	{
-		rl = readline(PROMPT_STR);
+		prompt = ft_strjoinx(3, FT_GREEN"Minishesh "FT_RESETCOL, env_get_var_content(envl, "PWD"), " $ ");
+		rl = readline(prompt);
+		free(prompt);	
 		if (!rl)
 			exit(EXIT_FAILURE);
 		cmds = parsing(rl); // return a linked list of t_cmd

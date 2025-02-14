@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+         #
+#    By: marykman <marykman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/02/07 18:05:47 by vpramann         ###   ########.fr        #
+#    Updated: 2025/02/13 12:33:32 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,10 +53,13 @@ FILES_PARSING		:=	parsing.c \
 						token.c \
 						redir.c \
 						utils.c
+FILES_ENV			:=	env.c \
+						utils.c
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
 SRCS				+=	$(addprefix srcs/exec/, ${FILES_EXEC})
+SRCS				+=	$(addprefix srcs/env/, ${FILES_ENV})
 OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------
