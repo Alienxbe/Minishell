@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/03/12 17:41:06 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:49:38 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void exec_cmdtmp(t_list *cmds, char **envp)
 	free_tab(cmdss);
 }
 
-void exec_cmdstmp(t_list *cmds, char ** envp)
+/*void exec_cmdstmp(t_list *cmds, char ** envp)
 {
 	t_cmd *cmd;
 	int pipe_fds[2];
@@ -145,8 +145,8 @@ void exec_cmdstmp(t_list *cmds, char ** envp)
 		{
 			if (access(redir->filename, R_OK) == 0)
 				in = open(redir->filename, O_RDONLY, 0444);
-			/*else
-				print_errors(3, NULL, file1);*/
+			//else
+				//print_errors(3, NULL, file1);
 		}
 	}
 	else
@@ -184,7 +184,7 @@ void exec_cmdstmp(t_list *cmds, char ** envp)
 	dup2(out, 1);
 	close(in);
 	close(out);
-}	
+}*/
 
 
 static int	(*init_pipes(t_list *cmds))[2]
@@ -208,7 +208,7 @@ static int	(*init_pipes(t_list *cmds))[2]
 
 static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
 {
-	t_redir pot_file;
+	t_redir *pot_file;
 	t_redir_type red_type;
 	int fd;
 	
@@ -216,16 +216,16 @@ static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
 	pot_file = redir->content;
 	red_type = NULL;
 	fd = -1;
-	if (pot_file.filename)
+	if (pot_file->filename)
 	{
-		if (pot_file.type)
-			red_type = pot_file.type;
+		if (pot_file->type)
+			red_type = pot_file->type;
 		if (red_type == REDIR_STDIN)
 		{
-			if (access(pot_file.filename, F_OK) == 0)
+			if (access(pot_file->filename, F_OK) == 0)
 			{
-				if (access(pot_file.filename, R_OK) == 0)
-					fd = open(pot_file.filename, O_RDONLY, 0444);
+				if (access(pot_file->filename, R_OK) == 0)
+					fd = open(pot_file->filename, O_RDONLY, 0444);
 			/*else
 				print_errors(3, NULL, file1);*/
 			}
@@ -241,7 +241,10 @@ static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
 	}
 	// else redir pipe
 	else
+	{
 		dup2(pipes[0][0], STDIN_FILENO);
+		dup2(pipes[0][1], STDOUT_FILENO);
+	}
 	if (cmd_index != 0)
 		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
 	if (cmd_index)
