@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/03/13 21:49:38 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/03/14 22:40:30 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*find_cmd_path(char *cmd, char **envp)
 	return (NULL);
 }
 
-char	*find_path(char **paths, char **cmds, int i)
+static char	*find_path(char **paths, char **cmds, int i)
 {
 	char	*path;
 	char	*cmdpath;
@@ -214,7 +214,7 @@ static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
 	
 	// if redir_file
 	pot_file = redir->content;
-	red_type = NULL;
+	red_type = 0;
 	fd = -1;
 	if (pot_file->filename)
 	{
@@ -242,8 +242,8 @@ static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
 	// else redir pipe
 	else
 	{
-		dup2(pipes[0][0], STDIN_FILENO);
-		dup2(pipes[0][1], STDOUT_FILENO);
+		dup2(pipes[cmd_index][0], STDIN_FILENO);
+		dup2(pipes[cmd_index][1], STDOUT_FILENO);
 	}
 	if (cmd_index != 0)
 		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
@@ -275,7 +275,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 	free_tab(env_to_ex);
 }
 
-static void	exec_cmd(t_cmd *cmd, t_list *cmds,int cmd_index, t_list *envl)
+static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl)
 {
 	int	saved_io[2];
 
@@ -284,7 +284,7 @@ static void	exec_cmd(t_cmd *cmd, t_list *cmds,int cmd_index, t_list *envl)
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
 	// Setup pipes (redirect or pipe) -> set stdin/out
-	set_pipes(cmd->redirs, cmd_index, saved_io);
+	set_pipes(cmd->redirs, cmd_index, &saved_io);
 	// Exec (builtins or not)
 	exec(cmd, envl);
 	dup2(saved_io[0], STDIN_FILENO);
@@ -306,7 +306,7 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 	i = 0;
 	while (lst)
 	{
-		exec_cmd(lst->content, cmds, i++, envl);
+		exec_cmd(lst->content, i++, envl);
 		lst = lst->next;
 	}
 	free(pipes);
