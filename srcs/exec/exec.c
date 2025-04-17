@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+/*#include <stdlib.h>
 #include <unistd.h>
 #include "ft_memory.h"
 #include "parsing.h"
@@ -78,3 +78,4 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 	}
 	free(pipes);
 }
+*/
