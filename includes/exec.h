@@ -14,7 +14,17 @@
 # define EXEC_H
 
 # include "ft_list.h"
+#include "minishell.h"
+#include "parsing.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include "ft_memory.h"
+#include "env.h"
 
+int     (*init_pipes(t_list *cmds))[2];
+void	set_pipes(int cmd_index, int (*pipes)[2], int nb_cmds);
 void	exec_cmds(t_list *cmds, t_list *envl);
+void	free_tab(char **tab);
+char	*find_cmd_path(char *cmd, char **envp);
 
 #endif
