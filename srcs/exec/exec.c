@@ -10,50 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*#include <stdlib.h>
-#include <unistd.h>
-#include "ft_memory.h"
-#include "parsing.h"
 #include "exec.h"
 
-static int	(*init_pipes(t_list *cmds))[2]
+static void exec(t_cmd *cmd, char **envl)
 {
-	int	(*pipes)[2];
-	int	pipe_count;
-	int	i;
-
-	pipe_count = ft_lstsize(cmds);
-	if (pipe_count < 2)
-		return (NULL);
-	pipes = ft_calloc(pipe_count - 1, sizeof(pipes));
-	if (!pipes)
-		return (NULL);
-	i = -1;
-	while (++i < pipe_count - 1)
-		if (pipe(pipes[i]) < 0)
-			return (NULL);	// TODO: free
-	return (pipes);
+	char	**to_ex;
+	char	*path;
+	int		pid;
+	
+	//if (isbuiltin(tcmd))
+	// ftbuiltin
+	to_ex = lst_to_strs(cmd->tokens);
+	if (!to_ex || !to_ex[0])
+	{
+		free_tab(to_ex);
+		return ;
+	}
+	path = find_cmd_path(to_ex[0], envl);
+	pid = fork();
+	if (pid == -1)
+	{
+		free(path);
+		free_tab(to_ex);
+		free_tab(envl);
+		return ;
+	}
+	if (pid == 0)
+	{
+		if (execve(path, to_ex, envl) == -1)
+		{
+			free(path);
+			free_tab(to_ex);
+			free_tab(envl);
+			exit(1);
+		}
+	}
+	else
+		waitpid(pid, NULL, 0);
 }
 
-static void	set_pipes(t_list *redir, int cmd_index, int (*pipes)[2])
-{
-	// if redir_file
-	// else redir pipe
-	if (cmd_index != 0)
-		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
-	if (cmd_index)
-	dup2(pipes[cmd_index][1], STDOUT_FILENO);
-}
-
-static void	exec_cmd(t_cmd *cmd, t_list *cmds,int cmd_index)
+static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 {
 	int	saved_io[2];
+	char	**envc;
 
+	
+	(void)envl;
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
+	envc = lst_to_strs(envl);
 	// Setup pipes (redirect or pipe) -> set stdin/out
-	set_pipes();
+	set_pipes(cmd_index, &saved_io, nb_cmds);
 	// Exec (builtins or not)
+	exec(cmd, envc);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);
@@ -65,17 +74,18 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 	t_list	*lst;
 	int		(*pipes)[2];
 	int		i;
+	int 	nb_cmds;
 
 	(void)envl;
+	nb_cmds = ft_lstsize(cmds);
 	pipes = init_pipes(cmds);
 	// Loop exec
 	lst = cmds;
 	i = 0;
 	while (lst)
 	{
-		exec_cmd(lst->content, cmds, i++);
+		exec_cmd(lst->content, i++, envl, nb_cmds);
 		lst = lst->next;
 	}
 	free(pipes);
 }
-*/

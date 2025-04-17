@@ -47,7 +47,9 @@ FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
 
 FILES				:=	main.c
-FILES_EXEC			:=	exec.c
+FILES_EXEC			:=	path.c \
+						redirs.c \
+						exec.c
 FILES_PARSING		:=	parsing.c \
 						cmd.c \
 						token.c \
