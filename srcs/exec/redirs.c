@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/04/17 18:15:54 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:00:38 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,24 @@ int open_files(t_list *redirs)
 		redir->fd_io[0] = -2;
 		redir->fd_io[1] = -2;
 		if (redir->type == REDIR_STDIN)
+		{
 			redir->fd_io[0] = open(redir->filename, O_RDONLY);
+			dup2(redir->fd_io[0], STDIN_FILENO);
+			close(redir->fd_io[0]);
+		}
 		else if (redir->type == REDIR_STDOUT)
+		{
 			redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			dup2(redir->fd_io[1], STDOUT_FILENO);
+			close(redir->fd_io[1]);
+		}
 		else if (redir->type == REDIR_STDOUT_APPEND)
+		{
 			redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			dup2(redir->fd_io[1], STDOUT_FILENO);
+			close(redir->fd_io[1]);
+		}	
+		
 		if (redir->fd_io[0] == -1 || redir->fd_io[1] == -1)
 			return (1);
 		redirs = redirs->next;
