@@ -22,9 +22,10 @@
 #include "env.h"
 
 int     (*init_pipes(t_list *cmds))[2];
-void	set_pipes(int cmd_index, int (*pipes)[2], int nb_cmds);
+void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
 void	exec_cmds(t_list *cmds, t_list *envl);
 void	free_tab(char **tab);
 char	*find_cmd_path(char *cmd, char **envp);
+void	close_pipes(int (*pipes)[2], int pipe_count);
 
 #endif

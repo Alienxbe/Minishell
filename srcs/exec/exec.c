@@ -60,7 +60,7 @@ static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 	saved_io[1] = dup(STDOUT_FILENO);
 	envc = lst_to_strs(envl);
 	// Setup pipes (redirect or pipe) -> set stdin/out
-	set_pipes(cmd_index, &saved_io, nb_cmds);
+	set_pipes(cmd->redirs, cmd_index, &saved_io, nb_cmds);
 	// Exec (builtins or not)
 	exec(cmd, envc);
 	dup2(saved_io[0], STDIN_FILENO);
@@ -79,7 +79,6 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 	(void)envl;
 	nb_cmds = ft_lstsize(cmds);
 	pipes = init_pipes(cmds);
-	// Loop exec
 	lst = cmds;
 	i = 0;
 	while (lst)
@@ -87,5 +86,5 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 		exec_cmd(lst->content, i++, envl, nb_cmds);
 		lst = lst->next;
 	}
-	free(pipes);
+	close_pipes(pipes, nb_cmds);
 }

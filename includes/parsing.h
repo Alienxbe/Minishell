@@ -50,6 +50,7 @@ typedef struct s_redir
 {
 	char			*filename;
 	t_redir_type	type;
+	int				fd_io[2];
 }	t_redir;
 
 // Parsing
