@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.s19.be>         +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:20:15 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/07 17:58:14 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/03/07 00:16:19 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef enum e_redir_type
 	REDIR_STDOUT_APPEND
 }	t_redir_type;
 
+typedef struct s_cmd_table
+{
+	t_list	*cmds;
+	int		cmd_count;
+	int		(*pipes)[2];
+}	t_cmd_table;
+
 /*
 ** Simple basic command
 ** Ex: ls -la > outfile
@@ -43,6 +50,7 @@ typedef struct s_redir
 {
 	char			*filename;
 	t_redir_type	type;
+	int				fd_io[2];
 }	t_redir;
 
 // Parsing

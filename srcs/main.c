@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/14 12:44:29 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/04 06:51:23 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,20 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "ft_printf.h"
-#include "parsing.h"
-#include "env.h"
-#include "minishell.h"
 #include "ft_colors.h"
-
-static void	print_token(void *content)
-{
-	char	*token;
-
-	if (!content)
-		return ;
-	token = content;
-	ft_printf("token: `%s`\n", token);
-}
-
-static void	print_redir(void *content)
-{
-	t_redir	*redir;
-
-	if (!content)
-		return ;
-	redir = content;
-	ft_printf("redir: %d\tfilename: %s\n", redir->type, redir->filename);
-}
-
-static void	print_cmd(void *content)
-{
-	t_cmd	*cmd;
-	
-	if (!content)
-		return ;
-	cmd = content;
-	ft_printf("=== New command: ===\n");
-	ft_lstiter(cmd->tokens, &print_token);
-	ft_lstiter(cmd->redirs, &print_redir);
-	ft_printf("====================\n\n");
-}
+#include "ft_printf.h"
+#include "env.h"
+#include "parsing.h"
+#include "exec.h"
+#include "minishell.h"
 
 int main(int argc, char const **argv, char **envp)
 {
-	char	*rl;
-	t_list	*cmds;
-	t_list	*envl;
+	char		*rl;
+	t_cmd_table	cmd_table;
+	t_list		*envl;
 	int i = 0;
-	char	*prompt;
+	// char	*prompt;
 
 	(void)argc;
 	(void)argv;
@@ -69,15 +37,15 @@ int main(int argc, char const **argv, char **envp)
 	// repl -> read eval print loop
 	while (i == 0)
 	{
-		prompt = ft_strjoinx(3, FT_GREEN"Minishesh "FT_RESETCOL, env_get_var_content(envl, "PWD"), " $ ");
-		rl = readline(prompt);
-		free(prompt);	
+		// prompt = ft_strjoinx(3, FT_GREEN"Minishesh "FT_RESETCOL, env_get_var_content(envl, "PWD"), " $ ");
+		rl = readline(PROMPT_STR);
+		// free(prompt);
 		if (!rl)
 			exit(EXIT_FAILURE);
-		cmds = parsing(rl); // return a linked list of t_cmd
-		ft_lstiter(cmds, &print_cmd);
-		exec_cmds(cmds, envp);
+		cmd_table.cmds = parsing(rl); // return a linked list of t_cmd
+		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
 		free(rl);
+		exec_cmds(cmd_table.cmds, envl);
 	}
 	return (EXIT_SUCCESS);
 }
