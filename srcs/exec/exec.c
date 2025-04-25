@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/03/07 00:13:53 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/24 18:09:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,35 +18,38 @@ static void exec(t_cmd *cmd, char **envl)
 	char	*path;
 	int		pid;
 	
-	//if (isbuiltin(tcmd))
-	// ftbuiltin
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
 	{
 		free_tab(to_ex);
 		return ;
 	}
-	path = find_cmd_path(to_ex[0], envl);
-	pid = fork();
-	if (pid == -1)
+	if (isbuiltin(to_ex[0]))
+		exec_builtins(to_ex, envl);
+	else
 	{
-		free(path);
-		free_tab(to_ex);
-		free_tab(envl);
-		return ;
-	}
-	if (pid == 0)
-	{
-		if (execve(path, to_ex, envl) == -1)
+		path = find_cmd_path(to_ex[0], envl);
+		pid = fork();
+		if (pid == -1)
 		{
 			free(path);
 			free_tab(to_ex);
 			free_tab(envl);
-			exit(1);
+			return ;
 		}
+		if (pid == 0)
+		{
+			if (execve(path, to_ex, envl) == -1)
+			{
+				free(path);
+				free_tab(to_ex);
+				free_tab(envl);
+				exit(1);
+			}
+		}
+		else
+			waitpid(pid, NULL, 0);
 	}
-	else
-		waitpid(pid, NULL, 0);
 }
 
 static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)

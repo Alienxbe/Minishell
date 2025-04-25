@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/14 14:52:42 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:16:02 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 ** @param envl is the same format as envp in the main except it's made of linked list
 ** for easier manipulation
 */
+
+typedef void	(*t_buildins)(char **, t_list *);
 
 void	ft_echo(char **argv, t_list *envl);
 void	ft_pwd(char **argv, t_list *envl);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:46:28 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/14 15:04:10 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/25 14:13:04 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_echo(char **argv, t_list *envl)
 
 	(void)envl;
 	has_option = isoption(argv[1], 'n');
-	i = 1 + has_option;
+	i = 1;
 	while (argv[i] && isoption(argv[i], 'n'))
 		i++;
 	while (argv[++i])
