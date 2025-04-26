@@ -89,6 +89,13 @@ char	*find_cmd_path(char *cmd, char **envp)
 	}
 	free_tab(paths);
 	free_tab(cmds);
+	if (!cmdpath)
+	{
+		cmdpath = ft_strdup(cmds[0]);
+		if (!cmdpath)
+			return (NULL);
+		return (cmdpath);
+	}
 	return (NULL);
 }
 

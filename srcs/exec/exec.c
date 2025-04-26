@@ -3,40 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/03/07 00:13:53 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 11:43:35 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-static void exec(t_cmd *cmd, char **envl)
+static void exec(t_cmd_table *cmd_table, t_cmd *cmd, char **envl, int (*pipes)[2], int nb_cmds)
 {
-	char	**to_ex;
-	char	*path;
-	int		pid;
+	long	pid;
+	t_list	*new_node;
 	
 	//if (isbuiltin(tcmd))
 	// ftbuiltin
-	to_ex = lst_to_strs(cmd->tokens);
-	if (!to_ex || !to_ex[0])
-	{
-		free_tab(to_ex);
-		return ;
-	}
-	path = find_cmd_path(to_ex[0], envl);
 	pid = fork();
 	if (pid == -1)
-	{
-		free(path);
-		free_tab(to_ex);
-		free_tab(envl);
 		return ;
-	}
-	if (pid == 0)
-	{
+	else if (pid == 0)
+		child_process(cmd, envl, pipes, nb_cmds);
+	new_node = ft_lstnew((void *)pid);
+	if (!new_node)
+		exit(1);
+	ft_lstadd_back(&cmd_table->pids, new_node);
+	/*{
 		if (execve(path, to_ex, envl) == -1)
 		{
 			free(path);
@@ -46,10 +38,10 @@ static void exec(t_cmd *cmd, char **envl)
 		}
 	}
 	else
-		waitpid(pid, NULL, 0);
+		waitpid(pid, NULL, 0);*/
 }
 
-static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
+static void	exec_cmd(t_cmd_table *cmd_table, t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 {
 	int	saved_io[2];
 	char	**envc;
@@ -62,14 +54,14 @@ static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 	// Setup pipes (redirect or pipe) -> set stdin/out
 	set_pipes(cmd->redirs, cmd_index, &saved_io, nb_cmds);
 	// Exec (builtins or not)
-	exec(cmd, envc);
+	exec(cmd_table, cmd, envc, &saved_io, nb_cmds);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);
 	close(saved_io[1]);
 }
 
-void	exec_cmds(t_list *cmds, t_list *envl)
+void	exec_cmds(t_cmd_table *cmd_table, t_list *cmds, t_list *envl)
 {
 	t_list	*lst;
 	int		(*pipes)[2];
@@ -79,12 +71,16 @@ void	exec_cmds(t_list *cmds, t_list *envl)
 	(void)envl;
 	nb_cmds = ft_lstsize(cmds);
 	pipes = init_pipes(cmds);
+	if (!pipes)
+		return ;
 	lst = cmds;
 	i = 0;
-	while (lst)
+	while (i < nb_cmds)
 	{
-		exec_cmd(lst->content, i++, envl, nb_cmds);
+		exec_cmd(cmd_table, lst->content, i, envl, nb_cmds);
 		lst = lst->next;
+		i++;
 	}
 	close_pipes(pipes, nb_cmds);
+	parent_process(&cmd_table->pids);
 }

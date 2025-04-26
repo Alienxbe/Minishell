@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/04 06:42:03 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 11:15:55 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@
 
 int     (*init_pipes(t_list *cmds))[2];
 void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
-void	exec_cmds(t_list *cmds, t_list *envl);
+void	exec_cmds(t_cmd_table *cmd_table, t_list *cmds, t_list *envl);
 void	free_tab(char **tab);
 char	*find_cmd_path(char *cmd, char **envp);
 void	close_pipes(int (*pipes)[2], int pipe_count);
+void    child_process(t_cmd *cmd, char **envl, int (*pipes)[2], int nb_cmds);
+void    parent_process(t_list **pids);
 
 #endif
