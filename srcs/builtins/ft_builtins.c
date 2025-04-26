@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/25 10:38:25 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 07:25:28 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:43:06 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_builtin	get_builtin_by_name(char *name)
 	t_builtin	*functions;
 	size_t		i;
 
-	names = (char *[8]){"cd", "echo", "env", "exit", "export", "pwd", "unset", NULL};
-	functions = (t_builtin [8]){&ft_cd, &ft_echo, &ft_env, &ft_exit, &ft_export, &ft_pwd, &ft_pwd, &ft_unset};
+	names = (char *[8]){"echo", "pwd", "cd", "env", "export", "unset", "exit", NULL};
+	functions = (t_builtin [8]){&ft_echo, &ft_pwd, &ft_cd, &ft_env, &ft_export, &ft_unset, &ft_exit, NULL};
 	i = -1;
 	while (names[++i])
 		if (!ft_strcmp(names[i], name))

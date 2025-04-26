@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:46:28 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 08:48:14 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/27 00:13:09 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_bool	isoption(const char *str, const char option_name)
 {
 	size_t	i;
 
+	if (!str)
+		return (false);
 	if (!ft_strstartwith(str, "-"))
 		return (false);
 	i = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 07:17:05 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 20:45:06 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 		else
 			waitpid(pid, NULL, 0);
 	}
+	free_tab(to_ex);
 }
 
 static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
