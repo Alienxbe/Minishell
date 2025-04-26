@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/25 14:16:02 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 07:14:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@
 ** for easier manipulation
 */
 
-typedef void	(*t_buildins)(char **, t_list *);
+typedef void	(*t_builtin)(char **, t_list *);
 
-void	ft_echo(char **argv, t_list *envl);
-void	ft_pwd(char **argv, t_list *envl);
-void	ft_cd(char **argv, t_list *envl);
-void	ft_env(char **argv, t_list *envl);
-void	ft_export(char **argv, t_list *envl);
-void	ft_unset(char **argv, t_list *envl);
-void	ft_exit(char **argv, t_list *envl);
+t_builtin	get_builtin_by_name(char *name);
+void		ft_echo(char **argv, t_list *envl);
+void		ft_pwd(char **argv, t_list *envl);
+void		ft_cd(char **argv, t_list *envl);
+void		ft_env(char **argv, t_list *envl);
+void		ft_export(char **argv, t_list *envl);
+void		ft_unset(char **argv, t_list *envl);
+void		ft_exit(char **argv, t_list *envl);
 
 #endif

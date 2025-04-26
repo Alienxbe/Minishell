@@ -6,17 +6,20 @@
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/24 18:09:01 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 07:17:05 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "builtins.h"
 #include "exec.h"
 
-static void exec(t_cmd *cmd, char **envl)
+static void exec(t_cmd *cmd, t_list *envl)
 {
 	char	**to_ex;
+	char	**envc;
 	char	*path;
 	int		pid;
+	t_builtin	builtin;
 	
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
@@ -24,26 +27,28 @@ static void exec(t_cmd *cmd, char **envl)
 		free_tab(to_ex);
 		return ;
 	}
-	if (isbuiltin(to_ex[0]))
-		exec_builtins(to_ex, envl);
+	builtin = get_builtin_by_name(to_ex[0]);
+	if (builtin)
+		builtin(to_ex, envl);
 	else
 	{
-		path = find_cmd_path(to_ex[0], envl);
+		envc = lst_to_strs(envl);
+		path = find_cmd_path(to_ex[0], envc);
 		pid = fork();
 		if (pid == -1)
 		{
 			free(path);
 			free_tab(to_ex);
-			free_tab(envl);
+			free_tab(envc);
 			return ;
 		}
 		if (pid == 0)
 		{
-			if (execve(path, to_ex, envl) == -1)
+			if (execve(path, to_ex, envc) == -1)
 			{
 				free(path);
 				free_tab(to_ex);
-				free_tab(envl);
+				free_tab(envc);
 				exit(1);
 			}
 		}
@@ -55,17 +60,15 @@ static void exec(t_cmd *cmd, char **envl)
 static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 {
 	int	saved_io[2];
-	char	**envc;
 
 	
 	(void)envl;
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
-	envc = lst_to_strs(envl);
 	// Setup pipes (redirect or pipe) -> set stdin/out
 	set_pipes(cmd->redirs, cmd_index, &saved_io, nb_cmds);
 	// Exec (builtins or not)
-	exec(cmd, envc);
+	exec(cmd, envl);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);

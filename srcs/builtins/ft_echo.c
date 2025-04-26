@@ -6,12 +6,13 @@
 /*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:46:28 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/25 14:13:04 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/26 08:48:14 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 #include "ft_string.h"
+#include "ft_printf.h"
 #include "builtins.h"
 
 t_bool	isoption(const char *str, const char option_name)
@@ -37,8 +38,12 @@ void	ft_echo(char **argv, t_list *envl)
 	i = 1;
 	while (argv[i] && isoption(argv[i], 'n'))
 		i++;
-	while (argv[++i])
-		ft_printf("%s", argv[i]);
-	if (has_option)
+	while (argv[i])
+	{
+		ft_printf("%s", argv[i++]);
+		if (argv[i])
+			ft_printf(" ");
+	}
+	if (!has_option)
 		ft_printf("\n");
 }
