@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:20:14 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 07:22:04 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:08:32 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	ft_env(char **argv, t_list *envl)
+void	ft_env(int argc, char **argv, t_list *envl)
 {
+	(void)argc;
 	(void)argv;
 	(void)envl;
 }

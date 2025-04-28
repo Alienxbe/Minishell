@@ -6,12 +6,24 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 20:45:06 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:13:20 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "exec.h"
+
+static int	get_string_tab_len(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
+}
 
 static void exec(t_cmd *cmd, t_list *envl)
 {
@@ -29,7 +41,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 	}
 	builtin = get_builtin_by_name(to_ex[0]);
 	if (builtin)
-		builtin(to_ex, envl);
+		builtin(get_string_tab_len(to_ex), to_ex, envl);
 	else
 	{
 		envc = lst_to_strs(envl);

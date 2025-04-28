@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:46:28 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/27 00:13:09 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:08:27 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ t_bool	isoption(const char *str, const char option_name)
 	return (true);
 }
 
-void	ft_echo(char **argv, t_list *envl)
+void	ft_echo(int argc, char **argv, t_list *envl)
 {
 	size_t	i;
 	t_bool	has_option;
 
+	(void)argc;
 	(void)envl;
 	has_option = isoption(argv[1], 'n');
 	i = 1;
