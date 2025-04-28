@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:19:24 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/28 13:13:10 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/28 13:23:05 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	ft_cd(int argc, char **argv, t_list *envl)
 		if (home_path)
 			chdir(home_path);
 		else
-			ft_printf("minishell: cd : HOME not set\n");
+			ft_printf("minishell: cd: HOME not set\n");
 	}
-	if (argc == 2)
+	else if (argc == 2)
 		chdir(argv[1]);
+	else
+		ft_printf("minishell: cd: too many arguments\n");
 }
