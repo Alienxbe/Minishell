@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 07:19:24 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/30 15:07:03 by marykman         ###   ########.fr       */
+/*   Created: 2025/04/30 14:19:48 by marykman          #+#    #+#             */
+/*   Updated: 2025/04/30 14:54:20 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
-#include "env.h"
 #include "builtins.h"
 
-void	ft_cd(int argc, char **argv, t_list *envl)
+void	builtin_print_error(t_builtin_error error, const char *cmd_name,
+	const char *filename)
 {
-	char	*path;
+	char **error_msg;
 
-	if (argc > 2)
-	{
-		builtin_print_error(TOO_MANY_ARGS, argv[0], NULL);
+	error_msg = (char *[]){
+		ERROR_MSG_TOO_MANY_ARGS,
+		ERROR_MSG_NO_FILE,
+		ERROR_MSG_MISSING_HOME};
+	if (error >= BUILTIN_ERROR_LEN)
 		return ;
-	}
-	path = argv[1];
-	if (argc == 1)
-		path = env_get_var_content(envl, "HOME");
-	if (!path)
-	{
-		builtin_print_error(MISSING_HOME, argv[0], NULL);
-		return ;
-	}
-	if (chdir(path) < 0)
-		builtin_print_error(NO_FILE, argv[0], path);
+	ft_fprintf(STDERR_FILENO, "Minishell: %s: ", cmd_name);
+	if (filename)
+		ft_fprintf(STDERR_FILENO, "%s: ", filename);
+	ft_fprintf(STDERR_FILENO, "%s\n", error_msg[error]);
 }

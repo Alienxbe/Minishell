@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marykman <marykman@student.42.fr>          +#+  +:+       +#+         #
+#    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/04/26 07:18:48 by marykman         ###   ########.fr        #
+#    Updated: 2025/04/30 14:55:47 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ FILES_PARSING		:=	parsing.c \
 						utils.c
 FILES_ENV			:=	env.c \
 						utils.c
-FILES_BUILTINS		:=	ft_builtins.c \
+FILES_BUILTINS		:=	error.c \
+						ft_builtins.c \
 						ft_cd.c \
 						ft_echo.c \
 						ft_env.c \

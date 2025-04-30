@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/28 13:04:37 by marykman         ###   ########.fr       */
+/*   Updated: 2025/04/30 15:01:54 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,18 @@
 ** for easier manipulation
 */
 
+# define ERROR_MSG_TOO_MANY_ARGS	"too many arguments"
+# define ERROR_MSG_NO_FILE			"No such file or directory"
+# define ERROR_MSG_MISSING_HOME		"HOME not set"
 typedef void	(*t_builtin)(int, char **, t_list *);
+
+typedef enum e_builtin_error
+{
+	TOO_MANY_ARGS,
+	NO_FILE,
+	MISSING_HOME,
+	BUILTIN_ERROR_LEN
+}	t_builtin_error;
 
 t_builtin	get_builtin_by_name(char *name);
 void		ft_echo(int argc, char **argv, t_list *envl);
@@ -34,5 +45,8 @@ void		ft_env(int argc, char **argv, t_list *envl);
 void		ft_export(int argc, char **argv, t_list *envl);
 void		ft_unset(int argc, char **argv, t_list *envl);
 void		ft_exit(int argc, char **argv, t_list *envl);
+
+void	builtin_print_error(t_builtin_error error, const char *cmd_name,
+	const char *filename);
 
 #endif
