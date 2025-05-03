@@ -13,7 +13,7 @@ void    parent_process(t_list **pids)
     }
 }
 
-void    child_process(t_cmd *cmd, char **envl, int (*pipes)[2], int nb_cmds)
+void    child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 {
     char    **to_ex;
     char    *path;
@@ -23,7 +23,7 @@ void    child_process(t_cmd *cmd, char **envl, int (*pipes)[2], int nb_cmds)
     to_ex = lst_to_strs(cmd->tokens);
     if (!to_ex || !to_ex[0])
         return ;
-    path = find_cmd_path(to_ex[0], envl);
-    if (execve(path, to_ex, envl) == -1)
-        return ;
+    path = find_cmd_path(to_ex[0], envc);
+    if (execve(path, to_ex, envc) == -1)
+        exit(1); ;
 }
