@@ -6,38 +6,30 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/04/26 11:39:16 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 07:39:19 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int	(*init_pipes(t_list *cmds))[2]
+int	(*init_pipes(int nb_cmds))[2]
 {
 	int	(*pipes)[2];
-	int	pipe_count;
 	int	i;
 
-	pipe_count = ft_lstsize(cmds);
-	if (pipe_count < 2)
-		return (NULL);
-	pipes = ft_calloc(pipe_count, sizeof(int[2]));
+	if (nb_cmds == 1)
+		return (0);
+	pipes = ft_calloc(nb_cmds, sizeof(int[2]));
 	if (!pipes)
-		return (NULL);
+		exit(1);
 	i = -1;
-	while (++i < pipe_count - 1)
+	while (++i < nb_cmds - 1)
 	{
+		//pipes[i] = ft_calloc(2, sizeof(int));
+		if(!pipes[i])
+			exit(1);
 		if (pipe(pipes[i]) < 0)
-		{
-			while (--i >= 0)
-			{
-				close(pipes[i][0]);
-				close(pipes[i][1]);
-				free(pipes[i]);
-			}
-			free(pipes);
-			return (NULL);	// TODO: free
-		}
+			exit(1);
 	}	
 	return (pipes);
 }
@@ -93,9 +85,10 @@ int open_files(t_list *redirs)
 
 void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds)
 {
-	if (open_files(redirs))
-		return ;
-	if (!is_redir(redirs, REDIR_STDIN) && cmd_index != 0 && pipes)
+	
+	/*if (open_files(redirs))
+		return ;*/
+	if (!is_redir(redirs, REDIR_STDIN) && cmd_index != 0)
 		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
 	if (!is_redir(redirs, REDIR_STDOUT) && !is_redir(redirs, REDIR_STDOUT_APPEND) && cmd_index != nb_cmds - 1)
 		dup2(pipes[cmd_index][1], STDOUT_FILENO);
