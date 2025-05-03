@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/04 06:51:23 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/03 21:25:19 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int main(int argc, char const **argv, char **envp)
 		// free(prompt);
 		if (!rl)
 			exit(EXIT_FAILURE);
+		add_history(rl);
 		cmd_table.cmds = parsing(rl); // return a linked list of t_cmd
 		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
 		free(rl);

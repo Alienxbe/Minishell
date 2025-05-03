@@ -21,5 +21,4 @@ Cool Tools:
 
 ToDo List:
 - Expander
-- Historique
 - Signaux
