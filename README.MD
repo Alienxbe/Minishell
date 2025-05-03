@@ -18,3 +18,8 @@ Big Picture (Minishell):
 Cool Tools:
 
     https://explainshell.com/ - Tool to match command-line arguments to their help text.
+
+ToDo List:
+- Expander
+- Historique
+- Signaux
