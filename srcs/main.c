@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/04 06:51:23 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/03 07:43:12 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int main(int argc, char const **argv, char **envp)
 		cmd_table.cmds = parsing(rl); // return a linked list of t_cmd
 		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
 		free(rl);
-		exec_cmds(cmd_table.cmds, envl);
+		exec_cmds(&cmd_table, envl);
 	}
 	return (EXIT_SUCCESS);
 }

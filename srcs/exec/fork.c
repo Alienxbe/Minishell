@@ -3,13 +3,19 @@
 
 void    parent_process(t_list **pids)
 {
-    int pid;
+    long pid;
+    t_list *tmp;
 
-    while (*pids)
+    if (!pids || !*pids)
+        return ;
+    tmp = *pids;
+    while (tmp)
     {
-        pid = *(int *)(*pids)->content;
+        if (!tmp->content)
+            return ;
+        pid = *(long *)(tmp);
         waitpid(pid, NULL, 0);
-        *pids = (*pids)->next;
+        tmp = tmp->next;
     }
 }
 
@@ -18,12 +24,15 @@ void    child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
     char    **to_ex;
     char    *path;
 
-    if (pipes)
-        close_pipes(pipes, nb_cmds);
+    close_pipes(pipes, nb_cmds);
     to_ex = lst_to_strs(cmd->tokens);
-    if (!to_ex || !to_ex[0])
+   if (!to_ex || !to_ex[0])
         return ;
     path = find_cmd_path(to_ex[0], envc);
     if (execve(path, to_ex, envc) == -1)
-        exit(1); ;
+        exit(1);
+    free(path);
+    free_tab(to_ex);
+    free_tab(envc);
+    exit(0);
 }
