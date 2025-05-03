@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 07:43:12 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 15:41:51 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 #include "exec.h"
 #include "minishell.h"
 
-int main(int argc, char const **argv, char **envp)
+int	main(int argc, char const **argv, char **envp)
 {
 	char		*rl;
 	t_cmd_table	cmd_table;
 	t_list		*envl;
-	int i = 0;
 	// char	*prompt;
 
 	(void)argc;
@@ -35,7 +34,7 @@ int main(int argc, char const **argv, char **envp)
 	envl = strs_to_lst(envp);
 	// printf("%s\n", env_get_var_content(envl, "PWD"));
 	// repl -> read eval print loop
-	while (i == 0)
+	while (1)
 	{
 		// prompt = ft_strjoinx(3, FT_GREEN"Minishesh "FT_RESETCOL, env_get_var_content(envl, "PWD"), " $ ");
 		rl = readline(PROMPT_STR);
