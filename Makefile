@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/04/30 14:55:47 by marykman         ###   ########.fr        #
+#    Updated: 2025/05/02 20:00:43 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,9 @@ FILES_PARSING		:=	parsing.c \
 						token.c \
 						redir.c \
 						utils.c
-FILES_ENV			:=	env.c \
+FILES_ENV			:=	add.c \
+						del.c \
+						get.c \
 						utils.c
 FILES_BUILTINS		:=	error.c \
 						ft_builtins.c \

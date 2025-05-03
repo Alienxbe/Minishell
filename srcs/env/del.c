@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_export.c                                        :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 07:21:32 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 21:07:10 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/02 20:00:34 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/03 19:20:51 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_string.h"
+#include <stdlib.h>
+#include "ft_list.h"
 #include "env.h"
-#include "builtins.h"
 
-void	ft_export(int argc, char **argv, t_list *envl)
+t_bool	env_del_var(t_list **envl, const char *name)
 {
-	(void)argc;
-	(void)argv;
-	(void)envl;
+	t_list	*var;
+	
+	var = env_get_var(*envl, name);
+	if (!var)
+		return (false);
+	ft_lstdelone(ft_lstremove(envl, var), &free);
+	return (true);
 }
