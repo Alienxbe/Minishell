@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/04/19 17:56:06 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/03 04:58:58 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,31 @@ static char	*find_path(char **paths, char **cmds, int i)
 	if (access(cmdpath, F_OK | X_OK) == 0)
 		return (free(path), cmdpath);
 	return (NULL);
+}
+
+char	**get_env_paths(char **envp)
+{
+	int		i;
+	char	**paths;
+
+	i = 0;
+	if (!envp)
+		return (NULL);
+	while (envp[i])
+	{
+		if (ft_strnstr(envp[i], "PATH=", 5) != NULL)
+			break ;
+		i++;
+	}
+	if (!envp[i])
+		return (NULL);
+	paths = ft_split(envp[i] + 5, ':');
+	if (!paths)
+		return (NULL);
+	i = 0;
+	while (paths[i++])
+		paths[i] = ft_strjoin(paths[i], "/");
+	return (paths);
 }
 
 char	*find_cmd_path(char *cmd, char **envp)
