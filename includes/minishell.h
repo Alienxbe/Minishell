@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:36:42 by marykman          #+#    #+#             */
-/*   Updated: 2025/03/06 23:15:28 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/03 11:30:53 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "parsing.h"
 # include <stdlib.h>
 # include <sys/wait.h>
+# include <stdio.h>
 
 
 
