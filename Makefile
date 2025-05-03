@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marykman <marykman@student.42.fr>          +#+  +:+       +#+         #
+#    By: victor <victor@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/02/13 12:33:32 by marykman         ###   ########.fr        #
+#    Updated: 2025/05/03 05:31:57 by victor           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,9 @@ HEADERS				:=	$(addprefix includes/, ${FILES});
 
 FILES				:=	main.c
 FILES_EXEC			:=	path.c \
-						redirs.c \
-						exec.c
+						redirs.c\
+						exec.c \
+						fork.c
 FILES_PARSING		:=	parsing.c \
 						cmd.c \
 						token.c \
