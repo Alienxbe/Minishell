@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 12:12:36 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 12:49:28 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ static char	*find_path(char **paths, char *cmd)
 	{
 		cmdpath = ft_strdup(cmd);
 		if (!cmdpath)
+		{
+			free(path);
 			exit (1);
+		}
 	}
 	return (cmdpath);
 }
@@ -92,4 +95,29 @@ char	*find_cmd_path(char *cmd, char **envp)
 		free_tab(paths);
 	}
 	return (cmdpath);
+}
+
+int has_relative_path(char *cmd)
+{
+	int i;
+
+	i = 0;
+	if (!cmd)
+		return (0);
+	while (cmd[i])
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int has_absolute_path(char *cmd)
+{
+	if (!cmd)
+		return (0);
+	if (cmd[0] == '/')
+		return (1);
+	return (0);
 }

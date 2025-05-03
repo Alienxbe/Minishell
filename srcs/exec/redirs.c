@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 11:53:36 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 12:46:53 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	(*init_pipes(int nb_cmds))[2]
 	i = -1;
 	while (++i < nb_cmds - 1)
 	{
-		//pipes[i] = ft_calloc(2, sizeof(int));
 		if(!pipes[i])
 			exit(1);
 		if (pipe(pipes[i]) < 0)
@@ -56,7 +55,7 @@ int open_infile(t_redir *redir)
 	if (redir->fd_io[0] == -1)
 	{
 		perror(redir->filename);
-		return (-1);
+		exit(1);
 	}
 	else
 	{
@@ -77,7 +76,7 @@ int open_outfile(t_redir *redir)
 	if (redir->fd_io[1] == -1)
 	{
 		perror(redir->filename);
-		return (-1);
+		exit(1);
 	}
 	else
 	{
