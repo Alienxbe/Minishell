@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 12:49:28 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 16:24:13 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "exec.h"
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
 
 static char	*find_path(char **paths, char *cmd)
 {
@@ -97,9 +81,9 @@ char	*find_cmd_path(char *cmd, char **envp)
 	return (cmdpath);
 }
 
-int has_relative_path(char *cmd)
+int	has_relative_path(char *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!cmd)
@@ -113,7 +97,7 @@ int has_relative_path(char *cmd)
 	return (0);
 }
 
-int has_absolute_path(char *cmd)
+int	has_absolute_path(char *cmd)
 {
 	if (!cmd)
 		return (0);
