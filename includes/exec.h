@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 10:46:51 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 12:49:51 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ void	close_pipes(int (*pipes)[2], int pipe_count);
 void    child_process(t_cmd *cmd, char **envl, int (*pipes)[2], int nb_cmds);
 void    parent_process(t_list **pids);
 void    close_files(t_list *redirs);
+int has_absolute_path(char *cmd);
+int has_relative_path(char *cmd);
 
 #endif
