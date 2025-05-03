@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 10:23:55 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 11:06:17 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	exec_cmd(t_cmd_table *cmd_table, t_cmd *cmd,int cmd_index, t_list *e
 	envc = lst_to_strs(envl);
 	// Setup pipes (redirect or pipe) -> set stdin/out
 	set_pipes(cmd->redirs, cmd_index, pipes, nb_cmds);
-	// Exec (builtins or not)
 	exec(cmd_table, cmd, envc, pipes, nb_cmds);
+	//close_files(cmd->redirs);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);
@@ -71,5 +71,6 @@ void	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 		i++;
 	}
 	close_pipes(pipes, nb_cmds);
+	//close_files(cmd_table->cmds->content);
 	parent_process(&cmd_table->pids);
 }

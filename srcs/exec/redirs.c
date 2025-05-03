@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 07:39:19 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 11:53:36 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,65 @@ int is_redir(t_list *redirs, t_redir_type type)
 	return (0);
 }
 
+int open_infile(t_redir *redir)
+{
+	if (redir->fd_io[0] != -2)
+		close (redir->fd_io[0]);
+	redir->fd_io[0] = open(redir->filename, O_RDONLY);
+	if (redir->fd_io[0] == -1)
+	{
+		perror(redir->filename);
+		return (-1);
+	}
+	else
+	{
+		dup2(redir->fd_io[0], STDIN_FILENO);
+		close(redir->fd_io[0]);
+	}
+	return (redir->fd_io[0]);
+}
+
+int open_outfile(t_redir *redir)
+{
+	if (redir->fd_io[1] != -2)
+		close (redir->fd_io[1]);	
+	if (redir->type == REDIR_STDOUT)
+		redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0666);
+	else if (redir->type == REDIR_STDOUT_APPEND)
+		redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	if (redir->fd_io[1] == -1)
+	{
+		perror(redir->filename);
+		return (-1);
+	}
+	else
+	{
+		dup2(redir->fd_io[1], STDOUT_FILENO);
+		close(redir->fd_io[1]);
+	}
+	return (redir->fd_io[1]);
+}
+
 int open_files(t_list *redirs)
 {
 	t_redir *redir;
 
+	
+	
+	if (!redirs)
+		return (0);
+	redir = redirs->content;
+	redir->fd_io[0] = -2;
+	redir->fd_io[1] = -2;
 	while (redirs)
 	{
 		redir = redirs->content;
-		redir->fd_io[0] = -2;
-		redir->fd_io[1] = -2;
 		if (redir->type == REDIR_STDIN)
-		{
-			redir->fd_io[0] = open(redir->filename, O_RDONLY);
-			dup2(redir->fd_io[0], STDIN_FILENO);
-			close(redir->fd_io[0]);
-		}
+			redir->fd_io[0] = open_infile(redir);
 		else if (redir->type == REDIR_STDOUT)
-		{
-			redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			dup2(redir->fd_io[1], STDOUT_FILENO);
-			close(redir->fd_io[1]);
-		}
+			redir->fd_io[1] = open_outfile(redir);
 		else if (redir->type == REDIR_STDOUT_APPEND)
-		{
-			redir->fd_io[1] = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
-			dup2(redir->fd_io[1], STDOUT_FILENO);
-			close(redir->fd_io[1]);
-		}	
-		
+			redir->fd_io[1] = open_outfile(redir);
 		if (redir->fd_io[0] == -1 || redir->fd_io[1] == -1)
 			return (1);
 		redirs = redirs->next;
@@ -86,8 +117,8 @@ int open_files(t_list *redirs)
 void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds)
 {
 	
-	/*if (open_files(redirs))
-		return ;*/
+	if (open_files(redirs))
+		return ;
 	if (!is_redir(redirs, REDIR_STDIN) && cmd_index != 0)
 		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
 	if (!is_redir(redirs, REDIR_STDOUT) && !is_redir(redirs, REDIR_STDOUT_APPEND) && cmd_index != nb_cmds - 1)
@@ -108,7 +139,6 @@ void	close_pipes(int (*pipes)[2], int pipe_count)
 	}
 	free(pipes);
 }
-
 
 
 void close_files(t_list *redirs)
