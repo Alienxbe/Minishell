@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 04:58:58 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/03 05:36:10 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-const char	*get_paths(char **envp)
+/*const char	*get_paths(char **envp)
 {
 	int	i;
 
@@ -42,18 +42,30 @@ const char	*get_paths(char **envp)
 		i++;
 	}
 	return (NULL);
-}
+}*/
 
-static char	*find_path(char **paths, char **cmds, int i)
+static char	*find_path(char **paths, char *cmd)
 {
 	char	*path;
 	char	*cmdpath;
+	int		i;
 
-	path = ft_strjoin(paths[i], "/");
-	cmdpath = ft_strjoin(path, cmds[0]);
-	if (access(cmdpath, F_OK | X_OK) == 0)
-		return (free(path), cmdpath);
-	return (NULL);
+	i = 0;
+	while (paths[i])
+	{
+		path = ft_strjoin(paths[i], "/");
+		cmdpath = ft_strjoin(path, cmd);
+		if (access(cmdpath, F_OK | X_OK) == 0)
+			return (free(path), cmdpath);
+		i++;
+	}
+	if (!paths[i])
+	{
+		cmdpath = ft_strdup(cmd);
+		if (!cmdpath)
+			exit (1);
+	}
+	return (cmdpath);
 }
 
 char	**get_env_paths(char **envp)
@@ -75,13 +87,10 @@ char	**get_env_paths(char **envp)
 	paths = ft_split(envp[i] + 5, ':');
 	if (!paths)
 		return (NULL);
-	i = 0;
-	while (paths[i++])
-		paths[i] = ft_strjoin(paths[i], "/");
 	return (paths);
 }
 
-char	*find_cmd_path(char *cmd, char **envp)
+/*char	*find_cmd_path(char *cmd, char **envp)
 {
 	int		i;
 	char	**paths;
@@ -122,9 +131,27 @@ char	*find_cmd_path(char *cmd, char **envp)
 		return (cmdpath);
 	}
 	return (NULL);
+}*/
+
+char	*find_cmd_path(char *cmd, char **envp)
+{
+	char	**paths;
+	char	*cmdpath;
+
+	paths = get_env_paths(envp);
+	if (!paths)
+	{
+		cmdpath = ft_strdup(cmd);
+		if (!cmdpath)
+			exit (1);
+	}
+	else
+	{
+		cmdpath = find_path(paths, cmd);
+		free_tab(paths);
+	}
+	return (cmdpath);
 }
-
-
 
 char **find_cmds(t_list *cmds)
 {
