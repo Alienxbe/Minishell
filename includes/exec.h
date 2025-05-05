@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 16:50:39 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/05 14:42:20 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include "ft_memory.h"
 # include "env.h"
+# include <signal.h>
 
 int		(*init_pipes(int nb_cmds))[2];
 void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
@@ -33,5 +34,6 @@ void	close_files(t_list *redirs);
 int		has_absolute_path(char *cmd);
 int		has_relative_path(char *cmd);
 int		is_redir(t_list *redirs, t_redir_type type);
+void    handle_sigint(int sig);
 
 #endif
