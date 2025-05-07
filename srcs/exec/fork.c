@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 16:38:25 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:16:20 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	parent_process(t_list **pids)
 	long	pid;
 	t_list	*tmp;
 
+	start_signals();
 	if (!pids || !*pids)
 		return ;
 	tmp = *pids;
@@ -35,6 +36,7 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	char	**to_ex;
 	char	*path;
 
+	start_signals();
 	close_pipes(pipes, nb_cmds);
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])

@@ -6,19 +6,23 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:33:56 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/05 15:45:13 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:07:30 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "exec.h"
 
-void handle_sigint(int sig)
+void    handle_sigint(int sig)
 {
-    int pid;
+    (void)sig;
+    write(1, "\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+}
 
-    pid = fork();
-    if (pid < 0)
-        exit (1);
-    else if (pid == 0)
-        kill(pid, sig);
+void    start_signals(void)
+{
+    signal(SIGINT, handle_sigint);
+    signal(SIGQUIT, SIG_IGN);
 }
