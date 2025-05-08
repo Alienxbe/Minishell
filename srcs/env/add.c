@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:47:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 19:22:06 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/06 19:29:57 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ t_list	*env_add_var(t_list **envl, char *name, char *content)
 {
 	char	*var;
 	t_list	*lst;
-	
+
+	if (!content)
+		content = "";
 	var = ft_strjoinx(3, name, "=", content);
 	if (!var)
 		return (NULL);

@@ -6,10 +6,11 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/28 13:13:20 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:48:15 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
 #include "builtins.h"
 #include "exec.h"
 
@@ -41,7 +42,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 	}
 	builtin = get_builtin_by_name(to_ex[0]);
 	if (builtin)
-		builtin(get_string_tab_len(to_ex), to_ex, envl);
+		ft_printf("Exit status: %d\n", builtin(get_string_tab_len(to_ex), to_ex, envl));
 	else
 	{
 		envc = lst_to_strs(envl);

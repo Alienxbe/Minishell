@@ -6,10 +6,11 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:20:14 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 19:23:11 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:52:25 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ft_list.h"
 #include "ft_printf.h"
 #include "env.h"
@@ -20,7 +21,7 @@ static void	print_env_var(void *content)
 	ft_printf("%s\n", (char *)content);
 }
 
-void	ft_env(int argc, char **argv, t_list *envl)
+int	ft_env(int argc, char **argv, t_list *envl)
 {
 	char	*content;
 
@@ -31,7 +32,11 @@ void	ft_env(int argc, char **argv, t_list *envl)
 	else if (argc == 2)
 	{
 		content = env_get_var_content(envl, argv[1]);
+		ft_fprintf(2, "%p\n", content);
 		if (content)
 			ft_printf("%s\n", content);
+		else
+			return (builtin_print_error(VAR_DOES_NOT_EXIT, "env", argv[1]));
 	}
+	return (EXIT_SUCCESS);
 }
