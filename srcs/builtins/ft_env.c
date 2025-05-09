@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:20:14 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/08 16:52:25 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/09 09:35:14 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_env(int argc, char **argv, t_list *envl)
 		if (content)
 			ft_printf("%s\n", content);
 		else
-			return (builtin_print_error(VAR_DOES_NOT_EXIT, "env", argv[1]));
+			return (builtin_print_error(MISSING_VAR, "env", argv[1]));
 	}
 	return (EXIT_SUCCESS);
 }
