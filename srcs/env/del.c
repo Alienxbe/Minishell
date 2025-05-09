@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 20:00:34 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 19:20:51 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:40:47 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 t_bool	env_del_var(t_list **envl, const char *name)
 {
 	t_list	*var;
-	
+
 	var = env_get_var(*envl, name);
 	if (!var)
 		return (false);

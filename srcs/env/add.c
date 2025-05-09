@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 19:47:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/06 19:29:57 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/10 00:56:00 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_string.h"
 #include "env.h"
 
-t_list	*env_add_var(t_list **envl, char *name, char *content)
+t_list	*env_add_var(t_list **envl, const char *name, char *content)
 {
 	char	*var;
 	t_list	*lst;

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:19:24 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/08 16:33:59 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:29:13 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 #include "ft_printf.h"
 #include "env.h"
 #include "builtins.h"
+
+static void	update_pwd(t_list **envl)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return ;
+	env_del_var(envl, "PWD");
+	env_add_var(envl, "PWD", getcwd(NULL, 0));
+	free(pwd);
+}
 
 int	ft_cd(int argc, char **argv, t_list *envl)
 {
@@ -29,5 +41,6 @@ int	ft_cd(int argc, char **argv, t_list *envl)
 		return (builtin_print_error(MISSING_HOME, argv[0], NULL));
 	if (chdir(path) < 0)
 		return (builtin_print_error(NO_FILE, argv[0], path));
+	update_pwd(&envl);
 	return (EXIT_SUCCESS);
 }

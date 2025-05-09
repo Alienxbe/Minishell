@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/02 20:00:43 by marykman         ###   ########.fr        #
+#    Updated: 2025/05/09 15:19:05 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ FILES_PARSING		:=	parsing.c \
 						redir.c \
 						utils.c
 FILES_ENV			:=	add.c \
+						cat.c \
 						del.c \
 						get.c \
 						utils.c

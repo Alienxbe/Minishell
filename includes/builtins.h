@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/09 09:34:44 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/09 15:53:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERROR_MSG_TOO_MANY_ARGS		"too many arguments"
 # define ERROR_MSG_NO_FILE				"No such file or directory"
 # define ERROR_MSG_MISSING_HOME			"HOME not set"
-# define ERROR_MSG_MISSING_VAR		"Variable not set"
+# define ERROR_MSG_MISSING_VAR			"Variable not set"
 
 typedef int	(*t_builtin)(int, char **, t_list *);
 

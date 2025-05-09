@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:36:17 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 21:06:36 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:40:21 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ t_list	*env_get_var(t_list *envl, const char *name)
  * 
  * @param envl Environnement list
  * @param name Variable name
- * @return char* Corresponding static string -> Can't be manipulated outside the function
+ * @return char* Corresponding static string -> Can't be manipulated outside the 
+ * Function
  */
 char	*env_get_var_content(t_list *envl, const char *name)
 {

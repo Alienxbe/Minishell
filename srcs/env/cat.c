@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   cat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/26 07:22:58 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/10 01:39:16 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/09 13:26:45 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/09 15:36:24 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "ft_string.h"
 #include "env.h"
-#include "builtins.h"
 
-int	ft_unset(int argc, char **argv, t_list *envl)
+t_list	*env_cat_var(t_list **envl, const char *name, const char *str)
 {
-	int	i;
+	char	*new_str;
 
-	i = 0;
-	while (++i < argc)
-		env_del_var(&envl, argv[i]);
-	return (EXIT_SUCCESS);
+	if (!str || !name)
+		return (false);
+	new_str = env_get_var_content(*envl, name);
+	if (new_str)
+		new_str = ft_strjoin(new_str, str);
+	else
+		new_str = "";
+	if (!new_str)
+		return (false);
+	env_del_var(envl, name);
+	return (env_add_var(envl, name, new_str));
 }

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 14:19:48 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/09 09:34:59 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:39:29 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 int	builtin_print_error(t_builtin_error error, const char *cmd_name,
 	const char *filename)
 {
-	char **error_msg;
+	char	**error_msg;
 
 	error_msg = (char *[]){
 		ERROR_MSG_TOO_MANY_ARGS,
