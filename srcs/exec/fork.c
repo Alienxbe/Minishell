@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/07 19:16:20 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/09 14:09:16 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	parent_process(t_list **pids)
 {
-	long	pid;
-	t_list	*tmp;
+	long				pid;
+	t_list				*tmp;
+	int					status;
+	struct sigaction	sa_old;
 
-	start_signals();
+	sigaction(SIGINT, &(struct sigaction){.sa_handler = SIG_IGN}, &sa_old);
 	if (!pids || !*pids)
 		return ;
 	tmp = *pids;
@@ -26,9 +28,13 @@ void	parent_process(t_list **pids)
 		if (!tmp->content)
 			return ;
 		pid = *(long *)(tmp);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
 		tmp = tmp->next;
 	}
+	sigaction(SIGINT, &sa_old, NULL);
+	start_signals();
 }
 
 void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
@@ -36,7 +42,7 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	char	**to_ex;
 	char	*path;
 
-	start_signals();
+	start_signals_exec();
 	close_pipes(pipes, nb_cmds);
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
