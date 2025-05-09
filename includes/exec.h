@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/07 19:09:27 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:08:23 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ int		has_absolute_path(char *cmd);
 int		has_relative_path(char *cmd);
 int		is_redir(t_list *redirs, t_redir_type type);
 void    start_signals(void);
+void    start_signals_exec(void);
 
 #endif
