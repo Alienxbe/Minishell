@@ -26,7 +26,7 @@
 
 
 int		(*init_pipes(int nb_cmds))[2];
-void	set_pipes(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
+void	set_pipes_redirs(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
 void	exec_cmds(t_cmd_table *cmd_table, t_list *envl);
 void	free_tab(char **tab);
 char	*find_cmd_path(char *cmd, char **envp);
