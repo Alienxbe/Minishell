@@ -45,6 +45,7 @@ typedef struct s_cmd
 {
 	t_list	*tokens; // ->content = char *
 	t_list	*redirs; // ->content = t_redir *
+	int    cmd_index;
 }	t_cmd;
 
 typedef struct s_redir
