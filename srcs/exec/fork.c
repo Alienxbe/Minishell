@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/09 14:09:16 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/10 05:23:47 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	char	*path;
 
 	start_signals_exec();
-	close_pipes(pipes, nb_cmds);
+    (void)pipes;
+    (void)nb_cmds;
+	//close_pipes(pipes, nb_cmds);
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
 		return ;

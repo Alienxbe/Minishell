@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/10 04:10:46 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/10 05:20:21 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 	new_node = ft_lstnew((void *)pid);
 	if (!new_node)
 		exit(1);
-	ft_lstadd_front(&cmd_table->pids, new_node);
+	ft_lstadd_back(&cmd_table->pids, new_node);
 	free_tab(envc);
 }
 
@@ -41,6 +41,7 @@ static void	exec_cmd(t_cmd_table *cmd_table,
 
 	(void)envl;
 	cmd = cmd_table->cmds->content;
+	cmd->cmd_index = cmd_index;
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
 	envc = lst_to_strs(envl);
@@ -54,14 +55,12 @@ static void	exec_cmd(t_cmd_table *cmd_table,
 
 void	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 {
-	t_list	*lst;
 	int		(*pipes)[2];
 	int		i;
 	int		nb_cmds;
 
 	if (!cmd_table || !envl)
 		return ;
-	lst = cmd_table->cmds;
 	nb_cmds = cmd_table->cmd_count;
 	cmd_table->pids = NULL;
 	pipes = init_pipes(nb_cmds);
@@ -69,7 +68,7 @@ void	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 	while (i < nb_cmds)
 	{
 		exec_cmd(cmd_table, i, envl, pipes);
-		lst = lst->next;
+		cmd_table->cmds->content = cmd_table->cmds->next;
 		i++;
 	}
 	close_pipes(pipes, nb_cmds);
