@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/03 16:47:41 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/10 04:10:46 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 	new_node = ft_lstnew((void *)pid);
 	if (!new_node)
 		exit(1);
-	ft_lstadd_back(&cmd_table->pids, new_node);
+	ft_lstadd_front(&cmd_table->pids, new_node);
 	free_tab(envc);
 }
 
@@ -44,7 +44,7 @@ static void	exec_cmd(t_cmd_table *cmd_table,
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
 	envc = lst_to_strs(envl);
-	set_pipes(cmd->redirs, cmd_index, pipes, cmd_table->cmd_count);
+	set_pipes_redirs(cmd->redirs, cmd_index, pipes, cmd_table->cmd_count);
 	exec(cmd_table, cmd, envc, pipes);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
