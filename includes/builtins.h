@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/09 15:53:01 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:57:23 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define ERROR_MSG_MISSING_HOME			"HOME not set"
 # define ERROR_MSG_MISSING_VAR			"Variable not set"
 
-typedef int	(*t_builtin)(int, char **, t_list *);
+typedef int	(*t_builtin)(int, char **, t_list **);
 
 typedef enum e_builtin_error
 {
@@ -41,13 +41,13 @@ typedef enum e_builtin_error
 }	t_builtin_error;
 
 t_builtin	get_builtin_by_name(char *name);
-int			ft_echo(int argc, char **argv, t_list *envl);
-int			ft_pwd(int argc, char **argv, t_list *envl);
-int			ft_cd(int argc, char **argv, t_list *envl);
-int			ft_env(int argc, char **argv, t_list *envl);
-int			ft_export(int argc, char **argv, t_list *envl);
-int			ft_unset(int argc, char **argv, t_list *envl);
-int			ft_exit(int argc, char **argv, t_list *envl);
+int			ft_echo(int argc, char **argv, t_list **envl);
+int			ft_pwd(int argc, char **argv, t_list **envl);
+int			ft_cd(int argc, char **argv, t_list **envl);
+int			ft_env(int argc, char **argv, t_list **envl);
+int			ft_export(int argc, char **argv, t_list **envl);
+int			ft_unset(int argc, char **argv, t_list **envl);
+int			ft_exit(int argc, char **argv, t_list **envl);
 
 int			builtin_print_error(t_builtin_error error, const char *cmd_name,
 	const char *filename);

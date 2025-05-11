@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/08 16:48:15 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/11 17:01:08 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	get_string_tab_len(char **tab)
 	return (i);
 }
 
-static void exec(t_cmd *cmd, t_list *envl)
+static void exec(t_cmd *cmd, t_list **envl)
 {
 	char	**to_ex;
 	char	**envc;
@@ -45,7 +45,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 		ft_printf("Exit status: %d\n", builtin(get_string_tab_len(to_ex), to_ex, envl));
 	else
 	{
-		envc = lst_to_strs(envl);
+		envc = lst_to_strs(*envl);
 		path = find_cmd_path(to_ex[0], envc);
 		pid = fork();
 		if (pid == -1)
@@ -71,7 +71,7 @@ static void exec(t_cmd *cmd, t_list *envl)
 	free_tab(to_ex);
 }
 
-static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
+static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list **envl, int nb_cmds)
 {
 	int	saved_io[2];
 
@@ -89,14 +89,13 @@ static void	exec_cmd(t_cmd *cmd,int cmd_index, t_list *envl, int nb_cmds)
 	close(saved_io[1]);
 }
 
-void	exec_cmds(t_list *cmds, t_list *envl)
+void	exec_cmds(t_list *cmds, t_list **envl)
 {
 	t_list	*lst;
 	int		(*pipes)[2];
 	int		i;
 	int 	nb_cmds;
 
-	(void)envl;
 	nb_cmds = ft_lstsize(cmds);
 	pipes = init_pipes(cmds);
 	lst = cmds;

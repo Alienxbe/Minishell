@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:21:32 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/10 01:39:48 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/11 16:59:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ static void	export_var(t_list **envl, char *str)
 	free(name);
 }
 
-int	ft_export(int argc, char **argv, t_list *envl)
+int	ft_export(int argc, char **argv, t_list **envl)
 {
 	int	i;
 
 	i = 0;
 	while (++i < argc)
-		export_var(&envl, argv[i]);
+		export_var(envl, argv[i]);
 	return (EXIT_SUCCESS);
 }
