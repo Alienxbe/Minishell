@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/12 15:36:43 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:07:28 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	close_pipes(pipes, nb_cmds);
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
-		return ;
+	{
+		free_tab(to_ex);
+        free_tab(envc);
+        exit(1);
+	}
+	//	return ;
 	if (has_absolute_path(to_ex[0]) || has_relative_path(to_ex[0]))
 	{
 		if (access(to_ex[0], F_OK | X_OK) == 0)
@@ -59,6 +64,9 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	}
 	else
 		path = find_cmd_path(to_ex[0], envc);
+	if (!path)
+		return (printf("minishell: %s: command not found\n", to_ex[0]),
+			free_tab(to_ex), free_tab(envc), exit(127));
 	if (execve(path, to_ex, envc) == -1)
 		return (perror("execve"), free(path),
 			free_tab(to_ex), free_tab(envc), exit(1));
