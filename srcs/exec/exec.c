@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/10 05:20:21 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/12 15:18:26 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 	while (i < nb_cmds)
 	{
 		exec_cmd(cmd_table, i, envl, pipes);
-		cmd_table->cmds->content = cmd_table->cmds->next;
+		cmd_table->cmds = cmd_table->cmds->next;
 		i++;
 	}
 	close_pipes(pipes, nb_cmds);
