@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/14 16:47:03 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/14 22:46:20 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,24 @@ void	parent_process(t_list **pids)
 			write(1, "\n", 1);
 		tmp = tmp->next;
 	}
+	free_pids(pids);
 	sigaction(SIGINT, &sa_old, NULL);
 	start_signals();
+}
+
+void	free_pids(t_list **pids)
+{
+	t_list	*tmp;
+
+	if (!pids || !*pids)
+		return ;
+	while (*pids)
+	{
+		tmp = *pids;
+		*pids = (*pids)->next;
+		free(tmp);
+	}
+	free(pids);
 }
 
 /*void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
