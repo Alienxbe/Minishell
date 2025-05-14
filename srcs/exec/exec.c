@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/12 15:18:26 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:38:44 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@ static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 	long	pid;
 	t_list	*new_node;
 
-	/*if (isbuiltin(tcmd))
-	 ftbuiltin*/
 	pid = fork();
 	if (pid == -1)
 		exit(1);
 	else if (pid == 0)
+	{
+		/*if (isbuiltin(tcmd))
+	 		ftbuiltin
+		else*/
 		child_process(cmd, envc, pipes, cmd_table->cmd_count);
+	}
 	new_node = ft_lstnew((void *)pid);
 	if (!new_node)
 		exit(1);
