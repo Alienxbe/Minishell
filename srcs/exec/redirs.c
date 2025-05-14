@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/10 04:09:59 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/14 15:42:01 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	open_outfile(t_redir *redir, int *fd_io)
 int	open_files(t_list *redirs)
 {
 	t_redir	*redir;
-	int fd_io[2];
+	int		fd_io[2];
 
 	if (!redirs)
 		return (0);
@@ -89,7 +89,8 @@ int	open_files(t_list *redirs)
 		redir = redirs->content;
 		if (redir->type == REDIR_STDIN)
 			open_infile(redir, fd_io);
-		else if (redir->type == REDIR_STDOUT || redir->type == REDIR_STDOUT_APPEND)
+		else if (redir->type == REDIR_STDOUT
+			|| redir->type == REDIR_STDOUT_APPEND)
 			open_outfile(redir, fd_io);
 		if (fd_io[0] == -1 || fd_io[1] == -1)
 			return (1);
@@ -98,7 +99,8 @@ int	open_files(t_list *redirs)
 	return (0);
 }
 
-void	set_pipes_redirs(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds)
+void	set_pipes_redirs(t_list *redirs, int cmd_index,
+		int (*pipes)[2], int nb_cmds)
 {
 	if (open_files(redirs))
 		return ;
