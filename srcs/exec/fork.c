@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/14 15:57:05 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:47:03 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,7 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 	close_pipes(pipes, nb_cmds);
 	to_ex = lst_to_strs(cmd->tokens);
 	if (!to_ex || !to_ex[0])
-	{
-		free_tab(to_ex);
-		free_tab(envc);
-		exit(1);
-	}
+		exit_child_process(to_ex, envc);
 	if (has_absolute_path(to_ex[0]) || has_relative_path(to_ex[0]))
 	{
 		if (access(to_ex[0], F_OK | X_OK) == 0)
@@ -108,46 +104,9 @@ void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
 		free_tab(to_ex), free_tab(envc), exit(1));
 }
 
-void	free_tab(char **tab)
+void	exit_child_process(char **to_ex, char **envc)
 {
-	int	i;
-
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-int	is_redir(t_list *redirs, t_redir_type type)
-{
-	t_redir	*redir;
-
-	while (redirs)
-	{
-		redir = redirs->content;
-		if (redir->type == type)
-			return (1);
-		redirs = redirs->next;
-	}
-	return (0);
-}
-
-void	close_pipes(int (*pipes)[2], int pipe_count)
-{
-	int	i;
-
-	if (!pipes)
-		return ;
-	i = -1;
-	while (++i < pipe_count - 1)
-	{
-		close(pipes[i][0]);
-		close(pipes[i][1]);
-	}
-	free(pipes);
+	free_tab(to_ex);
+	free_tab(envc);
+	exit(1);
 }

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/14 15:38:44 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:38:32 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	exec_cmd(t_cmd_table *cmd_table,
 	char	**envc;
 	t_cmd	*cmd;
 
-	(void)envl;
 	cmd = cmd_table->cmds->content;
 	cmd->cmd_index = cmd_index;
 	saved_io[0] = dup(STDIN_FILENO);
