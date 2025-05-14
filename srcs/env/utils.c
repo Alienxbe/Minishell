@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 11:59:32 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/13 12:36:23 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:30:46 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**lst_to_strs(t_list *lst)
 
 	if (!lst)
 		return (NULL);
-	strs = ft_calloc(ft_lstsize(lst), sizeof(*strs) + 1);
+	strs = ft_calloc(ft_lstsize(lst) + 1, sizeof(*strs));
 	if (!strs)
 		return (NULL);
 	i = -1;
