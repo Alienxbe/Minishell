@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:42:20 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/14 16:43:19 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/16 18:04:17 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,18 @@ void	close_pipes(int (*pipes)[2], int pipe_count)
 		close(pipes[i][1]);
 	}
 	free(pipes);
+}
+
+void	free_pids(t_list **pids)
+{
+	t_list	*tmp;
+
+	if (!pids || !*pids)
+		return ;
+	while (*pids)
+	{
+		tmp = *pids;
+		*pids = (*pids)->next;
+		free(tmp);
+	}
 }

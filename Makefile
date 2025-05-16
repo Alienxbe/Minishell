@@ -6,7 +6,7 @@
 #    By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/05 14:43:18 by vpramann         ###   ########.fr        #
+#    Updated: 2025/05/16 18:03:13 by vpramann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,8 @@ FILES_EXEC			:=	path.c \
 						redirs.c\
 						exec.c \
 						fork.c \
-						signals.c
+						signals.c \
+						utils.c 
 FILES_PARSING		:=	parsing.c \
 						cmd.c \
 						token.c \
