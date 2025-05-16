@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:20:15 by marykman          #+#    #+#             */
-/*   Updated: 2025/04/26 11:03:40 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/16 23:45:33 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_cmd
 	t_list	*tokens; // ->content = char *
 	t_list	*redirs; // ->content = t_redir *
 	int    cmd_index;
+	int		ret;
 }	t_cmd;
 
 typedef struct s_redir
