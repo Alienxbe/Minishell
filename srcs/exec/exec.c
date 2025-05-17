@@ -6,7 +6,7 @@
 /*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/17 03:27:47 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/17 03:48:02 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 	else if (pid == 0)
 	{
 		/*if (isbuiltin(tcmd))
-	 		cmd->ret = ftbuiltin;
+	 		cmd_table->last_ret = ftbuiltin;
 		else*/
 		child_process(cmd, envc, pipes, cmd_table->cmd_count);
 	}
@@ -55,14 +55,14 @@ static void	exec_cmd(t_cmd_table *cmd_table,
 	close(saved_io[1]);
 }
 
-int	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
+void	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 {
 	int		(*pipes)[2];
 	int		i;
 	int		nb_cmds;
 
 	if (!cmd_table || !envl)
-		return (1);
+		return ;
 	nb_cmds = cmd_table->cmd_count;
 	cmd_table->pids = NULL;
 	pipes = init_pipes(nb_cmds);
@@ -75,5 +75,4 @@ int	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 	}
 	close_pipes(pipes, nb_cmds);
 	parent_process(&cmd_table->pids, cmd_table);
-	return (1);
 }
