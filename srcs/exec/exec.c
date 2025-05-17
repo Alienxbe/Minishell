@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/17 00:08:41 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/17 03:27:47 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,9 @@ int	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 	int		(*pipes)[2];
 	int		i;
 	int		nb_cmds;
-	t_cmd	*cmd;
 
 	if (!cmd_table || !envl)
 		return (1);
-	cmd = ft_lstlast(cmd_table->cmds)->content;
 	nb_cmds = cmd_table->cmd_count;
 	cmd_table->pids = NULL;
 	pipes = init_pipes(nb_cmds);
@@ -77,5 +75,5 @@ int	exec_cmds(t_cmd_table *cmd_table, t_list *envl)
 	}
 	close_pipes(pipes, nb_cmds);
 	parent_process(&cmd_table->pids, cmd_table);
-	return (cmd->ret);
+	return (1);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/17 00:08:24 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/17 03:30:33 by victor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	parent_process(t_list **pids, t_cmd_table *cmd_table)
+/*void	parent_process(t_list **pids, t_cmd_table *cmd_table)
 {
 	long				pid;
 	t_list				*tmp;
@@ -51,8 +51,33 @@ void	parent_process(t_list **pids, t_cmd_table *cmd_table)
 	free_pids(pids);
 	sigaction(SIGINT, &sa_old, NULL);
 	start_signals();
-}
+}*/
 
+void	parent_process(t_list **pids)
+{
+	long				pid;
+	t_list				*tmp;
+	int					status;
+	struct sigaction	sa_old;
+
+	sigaction(SIGINT, &(struct sigaction){.sa_handler = SIG_IGN}, &sa_old);
+	if (!pids || !*pids)
+		return ;
+	tmp = *pids;
+	while (tmp)
+	{
+		if (!tmp->content)
+			return ;
+		pid = *(long *)(tmp);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
+		tmp = tmp->next;
+	}
+	free_pids(pids);
+	sigaction(SIGINT, &sa_old, NULL);
+	start_signals();
+}
 
 
 /*void	child_process(t_cmd *cmd, char **envc, int (*pipes)[2], int nb_cmds)
