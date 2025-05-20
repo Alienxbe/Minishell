@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/17 16:04:30 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:53:14 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parent_process(t_list **pids, t_cmd_table *cmd_table)
 		last_ret = get_exit_status(&status);
 		tmp = tmp->next;
 	}
-	cmd_table->last_ret = last_ret;
+	g_last_ret = last_ret;
 	free_pids(pids);
 	sigaction(SIGINT, &sa_old, NULL);
 	start_signals();

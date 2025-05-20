@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/17 03:48:51 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/20 18:52:12 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-
+extern int g_last_ret;
 int		(*init_pipes(int nb_cmds))[2];
 void	set_pipes_redirs(t_list *redirs, int cmd_index, int (*pipes)[2], int nb_cmds);
 void 	exec_cmds(t_cmd_table *cmd_table, t_list *envl);
