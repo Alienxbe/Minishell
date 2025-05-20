@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/20 18:53:14 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:01:56 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_exit_status(int *status)
 	return (ret);
 }
 
-void	parent_process(t_list **pids, t_cmd_table *cmd_table)
+void	parent_process(t_list **pids)
 {
 	long				pid;
 	t_list				*tmp;

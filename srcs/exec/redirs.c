@@ -6,32 +6,11 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/14 15:42:01 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:00:24 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-
-int	(*init_pipes(int nb_cmds))[2]
-{
-	int	(*pipes)[2];
-	int	i;
-
-	if (nb_cmds == 1)
-		return (0);
-	pipes = ft_calloc(nb_cmds, sizeof(int [2]));
-	if (!pipes)
-		exit(1);
-	i = -1;
-	while (++i < nb_cmds - 1)
-	{
-		if (!pipes[i])
-			exit(1);
-		if (pipe(pipes[i]) < 0)
-			exit(1);
-	}
-	return (pipes);
-}
 
 int	open_infile(t_redir *redir, int *fd_io)
 {

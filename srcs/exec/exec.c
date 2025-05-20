@@ -6,13 +6,34 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/20 18:54:51 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/20 19:01:30 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
 int	g_last_ret = 0;
+
+int	(*init_pipes(int nb_cmds))[2]
+{
+	int	(*pipes)[2];
+	int	i;
+
+	if (nb_cmds == 1)
+		return (0);
+	pipes = ft_calloc(nb_cmds, sizeof(int [2]));
+	if (!pipes)
+		exit(1);
+	i = -1;
+	while (++i < nb_cmds - 1)
+	{
+		if (!pipes[i])
+			exit(1);
+		if (pipe(pipes[i]) < 0)
+			exit(1);
+	}
+	return (pipes);
+}
 
 static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 					char **envc, int (*pipes)[2])
