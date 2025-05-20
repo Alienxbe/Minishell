@@ -6,13 +6,13 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/20 18:52:43 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/20 18:54:51 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-int g_last_ret = 0;
+int	g_last_ret = 0;
 
 static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
 					char **envc, int (*pipes)[2])
