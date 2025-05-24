@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/16 01:23:58 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/12 16:25:54 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/24 10:06:08 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef EXPANDER_H
+# define EXPANDER_H
+
 #include "parsing.h"
 
-t_list	*parsing(const char *input, t_list *envl)
-{
-	t_list	*cmds;
-	t_list	*new;
-	size_t	pos;
+char	*expand(char *token, t_list *envl);
+char	*ft_substr_expand(char *s, unsigned int start, size_t len,
+	t_list *envl);
 
-	cmds = NULL;
-	pos = 0;
-	while (input[pos])
-	{
-		skip_spaces(input, &pos);
-		new = ft_lstnew(get_cmd(input, &pos, envl));
-		if (!new)
-			return (NULL);	// EXIT
-		ft_lstadd_back(&cmds, new);
-		if (input[pos])
-			pos++;
-	}
-	return (cmds);
-}
+// Utils
+void	add_to_strs(t_list **strs, char *str);
 
+#endif

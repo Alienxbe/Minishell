@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/11 17:01:27 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/24 12:00:58 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "ft_printf.h"
 #include "env.h"
 #include "parsing.h"
+#include "expander.h"
 #include "exec.h"
 #include "minishell.h"
 
@@ -43,7 +44,7 @@ int main(int argc, char const **argv, char **envp)
 		if (!rl)
 			exit(EXIT_FAILURE);
 		add_history(rl);
-		cmd_table.cmds = parsing(rl); // return a linked list of t_cmd
+		cmd_table.cmds = parsing(rl, envl); // return a linked list of t_cmd
 		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
 		free(rl);
 		exec_cmds(cmd_table.cmds, &envl);

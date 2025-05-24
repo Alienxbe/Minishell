@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   add_to_strs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/16 01:23:58 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/24 09:38:56 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/24 10:05:59 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include <stdlib.h>
+#include "ft_list.h"
 
-t_list	*parsing(const char *input, t_list *envl)
+void	add_to_strs(t_list **strs, char *str)
 {
-	t_list	*cmds;
 	t_list	*new;
-	size_t	pos;
 
-	cmds = NULL;
-	pos = 0;
-	while (input[pos])
+	if (!str)
+		return ;
+	if (!*str)
 	{
-		skip_spaces(input, &pos);
-		new = ft_lstnew(get_cmd(input, &pos, envl));
-		if (!new)
-			return (NULL);	// EXIT
-		ft_lstadd_back(&cmds, new);
-		if (input[pos])
-			pos++;
+		free(str);
+		return ;
 	}
-	return (cmds);
+	new = ft_lstnew(str);
+	if (!new)
+		free(str);
+	ft_lstadd_back(strs, new);
 }
-

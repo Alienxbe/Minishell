@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/09 15:19:05 by marykman         ###   ########.fr        #
+#    Updated: 2025/05/24 10:04:02 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,12 +69,16 @@ FILES_BUILTINS		:=	error.c \
 						ft_export.c \
 						ft_pwd.c \
 						ft_unset.c
+FILES_EXPANDER		:=	expander.c \
+						utils.c \
+						add_to_strs.c
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
 SRCS				+=	$(addprefix srcs/exec/, ${FILES_EXEC})
 SRCS				+=	$(addprefix srcs/env/, ${FILES_ENV})
 SRCS				+=	$(addprefix srcs/builtins/, ${FILES_BUILTINS})
+SRCS				+=	$(addprefix srcs/expander/, ${FILES_EXPANDER})
 OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------
