@@ -6,12 +6,21 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:33:58 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/16 01:24:33 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/24 21:27:00 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "ft_memory.h"
 #include "parsing.h"
+
+void	free_redir(void *redir)
+{
+	if (!redir)
+		return ;
+	free(((t_redir *)redir)->filename);
+	free(redir);
+}
 
 t_redir	*get_redir(const char *input, size_t *pos, t_list *envl)
 {

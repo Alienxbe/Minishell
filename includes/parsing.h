@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:20:15 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/16 01:24:10 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/24 21:24:36 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,11 @@ t_cmd	*get_cmd(const char *input, size_t *pos, t_list *envl);
 char	*get_token(const char *input, size_t *pos, t_list *envl);
 t_redir	*get_redir(const char *input, size_t *pos, t_list *envl);
 
+void	free_cmd(void *cmd);
+void	free_redir(void *redir);
+
 // Utils
 void	skip_spaces(const char *input, size_t *pos);
+t_bool	add_element(t_list **lst, void *element);
 
 #endif

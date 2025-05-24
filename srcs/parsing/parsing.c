@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/16 01:23:58 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/24 21:26:34 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_list	*parsing(const char *input, t_list *envl)
 {
 	t_list	*cmds;
-	t_list	*new;
 	size_t	pos;
 
 	cmds = NULL;
@@ -23,10 +22,11 @@ t_list	*parsing(const char *input, t_list *envl)
 	while (input[pos])
 	{
 		skip_spaces(input, &pos);
-		new = ft_lstnew(get_cmd(input, &pos, envl));
-		if (!new)
-			return (NULL);	// EXIT
-		ft_lstadd_back(&cmds, new);
+		if (!add_element(&cmds, get_cmd(input, &pos, envl)))
+		{
+			ft_lstclear(&cmds, free_cmd);
+			return (NULL);
+		}
 		if (input[pos])
 			pos++;
 	}
