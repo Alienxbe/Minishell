@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/12 16:25:54 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/24 19:47:21 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stddef.h>
-#include "ft_ctype.h"
-#include "ft_list.h"
+#ifndef EXPANDER_H
+# define EXPANDER_H
 
-void	skip_spaces(const char *input, size_t *pos)
+#include "parsing.h"
+
+typedef enum e_expander_error
 {
-	while (ft_isspace(input[*pos]))
-		(*pos)++;
-}
+	EXPANDER_SUCCESS,
+	EXPANDER_QUOTING_ERROR
+}	t_expander_error;
 
-t_bool	add_element(t_list **lst, void *element)
-{
-	t_list	*new;
+char	*expand(char *token, t_list *envl);
+char	*ft_substr_expand(char *s, unsigned int start, size_t len,
+	t_list *envl);
 
-	if (!element)
-		return (false);
-	new = ft_lstnew(element);
-	if (!new)
-	{
-		free(element);
-		return (false);
-	}
-	return (ft_lstadd_back(lst, new));
-}
+// Utils
+void	add_to_strs(t_list **strs, char *str);
+
+#endif

@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   cat.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/09 13:26:45 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/09 15:36:24 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stddef.h>
-#include "ft_ctype.h"
-#include "ft_list.h"
+#include "ft_string.h"
+#include "env.h"
 
-void	skip_spaces(const char *input, size_t *pos)
+t_list	*env_cat_var(t_list **envl, const char *name, const char *str)
 {
-	while (ft_isspace(input[*pos]))
-		(*pos)++;
-}
+	char	*new_str;
 
-t_bool	add_element(t_list **lst, void *element)
-{
-	t_list	*new;
-
-	if (!element)
+	if (!str || !name)
 		return (false);
-	new = ft_lstnew(element);
-	if (!new)
-	{
-		free(element);
+	new_str = env_get_var_content(*envl, name);
+	if (new_str)
+		new_str = ft_strjoin(new_str, str);
+	else
+		new_str = "";
+	if (!new_str)
 		return (false);
-	}
-	return (ft_lstadd_back(lst, new));
+	env_del_var(envl, name);
+	return (env_add_var(envl, name, new_str));
 }

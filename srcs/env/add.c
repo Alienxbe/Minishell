@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   add.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/02 19:47:57 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/10 00:56:00 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stddef.h>
-#include "ft_ctype.h"
-#include "ft_list.h"
+#include "ft_string.h"
+#include "env.h"
 
-void	skip_spaces(const char *input, size_t *pos)
+t_list	*env_add_var(t_list **envl, const char *name, char *content)
 {
-	while (ft_isspace(input[*pos]))
-		(*pos)++;
-}
+	char	*var;
+	t_list	*lst;
 
-t_bool	add_element(t_list **lst, void *element)
-{
-	t_list	*new;
-
-	if (!element)
-		return (false);
-	new = ft_lstnew(element);
-	if (!new)
+	if (!content)
+		content = "";
+	var = ft_strjoinx(3, name, "=", content);
+	if (!var)
+		return (NULL);
+	lst = ft_lstnew(var);
+	if (!lst)
 	{
-		free(element);
-		return (false);
+		free(var);
+		return (NULL);
 	}
-	return (ft_lstadd_back(lst, new));
+	ft_lstadd_back(envl, lst);
+	return (lst);
 }

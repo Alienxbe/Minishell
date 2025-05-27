@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   del.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/05/02 20:00:34 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/10 01:40:47 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stddef.h>
-#include "ft_ctype.h"
 #include "ft_list.h"
+#include "env.h"
 
-void	skip_spaces(const char *input, size_t *pos)
+t_bool	env_del_var(t_list **envl, const char *name)
 {
-	while (ft_isspace(input[*pos]))
-		(*pos)++;
-}
+	t_list	*var;
 
-t_bool	add_element(t_list **lst, void *element)
-{
-	t_list	*new;
-
-	if (!element)
+	var = env_get_var(*envl, name);
+	if (!var)
 		return (false);
-	new = ft_lstnew(element);
-	if (!new)
-	{
-		free(element);
-		return (false);
-	}
-	return (ft_lstadd_back(lst, new));
+	ft_lstdelone(ft_lstremove(envl, var), &free);
+	return (true);
 }

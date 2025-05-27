@@ -1,37 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:13 by marykman         ###   ########.fr       */
+/*   Created: 2025/04/26 07:22:12 by marykman          #+#    #+#             */
+/*   Updated: 2025/05/11 16:59:17 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdlib.h>
-#include <stddef.h>
-#include "ft_ctype.h"
-#include "ft_list.h"
+#include "ft_printf.h"
+#include "builtins.h"
 
-void	skip_spaces(const char *input, size_t *pos)
+int	ft_pwd(int argc, char **argv, t_list **envl)
 {
-	while (ft_isspace(input[*pos]))
-		(*pos)++;
-}
+	char	*pwd;
 
-t_bool	add_element(t_list **lst, void *element)
-{
-	t_list	*new;
-
-	if (!element)
-		return (false);
-	new = ft_lstnew(element);
-	if (!new)
-	{
-		free(element);
-		return (false);
-	}
-	return (ft_lstadd_back(lst, new));
+	(void)argc;
+	(void)argv;
+	(void)envl;
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
+		return (EXIT_FAILURE);
+	ft_printf("%s\n", pwd);
+	free(pwd);
+	return (EXIT_SUCCESS);
 }

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+         #
+#    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/16 18:03:13 by vpramann         ###   ########.fr        #
+#    Updated: 2025/05/27 04:40:47 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,13 +58,29 @@ FILES_PARSING		:=	parsing.c \
 						token.c \
 						redir.c \
 						utils.c
-FILES_ENV			:=	env.c \
+FILES_ENV			:=	add.c \
+						cat.c \
+						del.c \
+						get.c \
+						utils.c
+FILES_BUILTINS		:=	error.c \
+						ft_builtins.c \
+						ft_cd.c \
+						ft_echo.c \
+						ft_env.c \
+						ft_exit.c \
+						ft_export.c \
+						ft_pwd.c \
+						ft_unset.c
+FILES_EXPANDER		:=	expander.c \
 						utils.c
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
 SRCS				+=	$(addprefix srcs/exec/, ${FILES_EXEC})
 SRCS				+=	$(addprefix srcs/env/, ${FILES_ENV})
+SRCS				+=	$(addprefix srcs/builtins/, ${FILES_BUILTINS})
+SRCS				+=	$(addprefix srcs/expander/, ${FILES_EXPANDER})
 OBJS				:=	$(patsubst srcs%.c, objs%.o, ${SRCS})
 
 # -----------------------------------Rules-------------------------------------

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:36:17 by marykman          #+#    #+#             */
-/*   Updated: 2025/02/13 16:48:05 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/10 01:40:21 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_list	*env_get_var(t_list *envl, const char *name)
 	size_t	name_len;
 	size_t	var_len;
 
+	if (!envl || !name)
+		return (NULL);
 	name_len = ft_strlen(name);
 	while (envl)
 	{
@@ -46,14 +48,22 @@ t_list	*env_get_var(t_list *envl, const char *name)
  * 
  * @param envl Environnement list
  * @param name Variable name
- * @return char* Corresponding static string -> Can't be manipulated outside the function
+ * @return char* Corresponding static string -> Can't be manipulated outside the 
+ * Function
  */
 char	*env_get_var_content(t_list *envl, const char *name)
 {
 	t_list	*var;
 
+	if (!envl || !name)
+		return (NULL);
 	var = env_get_var(envl, name);
 	if (!var)
 		return (NULL);
 	return (ft_strchr(var->content, '=') + 1);
+}
+
+int	env_get_var_name_len(const char *str)
+{
+	return (ft_strchr(str, '=') - str);
 }

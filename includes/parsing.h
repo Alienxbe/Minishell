@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: victor <victor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:20:15 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/17 03:41:36 by victor           ###   ########.fr       */
+/*   Updated: 2025/05/27 04:41:29 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,16 @@ typedef struct s_redir
 }	t_redir;
 
 // Parsing
-t_list	*parsing(const char *input);
-t_cmd	*get_cmd(const char *input, size_t *pos);
-char	*get_token(const char *input, size_t *pos);
-t_redir	*get_redir(const char *input, size_t *pos);
+t_list	*parsing(const char *input, t_list *envl);
+t_cmd	*get_cmd(const char *input, size_t *pos, t_list *envl);
+char	*get_token(const char *input, size_t *pos, t_list *envl);
+t_redir	*get_redir(const char *input, size_t *pos, t_list *envl);
+
+void	free_cmd(void *cmd);
+void	free_redir(void *redir);
 
 // Utils
 void	skip_spaces(const char *input, size_t *pos);
+t_bool	add_element(t_list **lst, void *element);
 
 #endif

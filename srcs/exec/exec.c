@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/20 19:01:30 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/27 04:42:46 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_printf.h"
+#include "builtins.h"
 #include "exec.h"
 
 int	g_last_ret = 0;
@@ -32,7 +34,7 @@ int	(*init_pipes(int nb_cmds))[2]
 		if (pipe(pipes[i]) < 0)
 			exit(1);
 	}
-	return (pipes);
+	return 		// substr_expand(pipes);
 }
 
 static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
