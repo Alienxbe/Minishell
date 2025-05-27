@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/27 18:56:39 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:28:04 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,7 @@ void	parent_process(t_list **pids)
 	start_signals();
 }
 
-void	exit_child_process(char **to_ex, char **envc)
-{
-	free_tab(to_ex);
-	free_tab(envc);
-	exit(1);
-}
-
-void	access_program(char *path, char **to_ex, char **envc)
+void	access_cmd(char *path, char **to_ex, char **envc)
 {
 	if (!path || access(path, F_OK | X_OK) != 0)
 		return (printf("minishell: %s: command not found\n", to_ex[0]),
@@ -70,6 +63,18 @@ void	access_program(char *path, char **to_ex, char **envc)
 		return (printf("minishell: %s: permission denied\n", to_ex[0]),
 			free(path), free_tab(to_ex), free_tab(envc), g_last_ret = 126,
 			exit(126));
+}
+
+char	*access_program(char **to_ex, char **envc)
+{
+	char	*path;
+
+	if (access(to_ex[0], F_OK | X_OK) == 0)
+		path = ft_strdup(to_ex[0]);
+	else
+		return (printf("minishell: %s: command not found\n", to_ex[0]),
+			free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127), NULL);
+	return (path);
 }
 
 void	child_process(char **to_ex, t_list **envl, int (*pipes)[2], int nb_cmds)
@@ -90,16 +95,10 @@ void	child_process(char **to_ex, t_list **envl, int (*pipes)[2], int nb_cmds)
 		exit(g_last_ret);
 	}
 	else if (has_absolute_path(to_ex[0]) || has_relative_path(to_ex[0]))
-	{
-		if (access(to_ex[0], F_OK | X_OK) == 0)
-			path = ft_strdup(to_ex[0]);
-		else
-			return (printf("minishell: %s: command not found\n", to_ex[0]),
-				free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127));
-	}
+		path = access_program(to_ex, envc);
 	else
 		path = find_cmd_path(to_ex[0], envc);
-	access_program(path, to_ex, envc);
+	access_cmd(path, to_ex, envc);
 	execve(path, to_ex, envc);
 	return (perror("execve"), free(path),
 		free_tab(to_ex), free_tab(envc), exit(1));

@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 18:57:30 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:28:19 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "exec.h"
 
 int	g_last_ret = 0;
+
+void	exit_child_process(char **to_ex, char **envc)
+{
+	free_tab(to_ex);
+	free_tab(envc);
+	exit(1);
+}
 
 int	(*init_pipes(int nb_cmds))[2]
 {

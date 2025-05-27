@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 19:00:37 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:28:39 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	start_signals(void);
 void	start_signals_exec(void);
 void	free_pids(t_list **pids);
 int		get_string_tab_len(char **tab);
+void	exit_child_process(char **to_ex, char **envc);
 
 #endif
