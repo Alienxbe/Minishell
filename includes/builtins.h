@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/11 16:57:23 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:34:02 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTINS_H
 
 # include "ft_list.h"
+# include "ft_string.h"
 
 /*
 ** Builtins prototype will always be similar

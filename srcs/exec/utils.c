@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 16:42:20 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/16 18:04:17 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:55:52 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,16 @@ void	free_pids(t_list **pids)
 		*pids = (*pids)->next;
 		free(tmp);
 	}
+}
+
+int	get_string_tab_len(char **tab)
+{
+	int	i;
+
+	if (!tab)
+		return (0);
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
