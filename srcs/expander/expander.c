@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:24:04 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 16:16:28 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/27 04:37:00 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,27 @@ static void	expand_to_strs(char *token, t_list **strs, t_list *envl)
 {
 	char	*next_quote;
 	size_t	i;
-	
+
 	i = 0;
 	while (token[i])
 	{
 		if (ft_strchr(QUOTE_TYPES, token[i]))
 		{
-			add_to_strs(strs, ft_substr(token, 0, i)); // Add everything before	// substr_expand
+			add_to_strs(strs, ft_substr(token, 0, i));
 			token += i + 1;
 			i = 0;
 			next_quote = ft_strchr(token, token[i - 1]);
-			// ft_printf("token: `%s` | next quote: `%s`\n", token, next_quote);
 			if (token[i - 1] == '\'')
 				add_to_strs(strs, ft_substr(token, 0, next_quote - token));
 			else if (token[i - 1] == '\"')
-				add_to_strs(strs, ft_substr_expand(token, 0, next_quote - token, envl));		// substr_expand
+				add_to_strs(strs, ft_substr_expand(token, 0,
+						next_quote - token, envl));
 			token = next_quote + 1;
 		}
 		else
 			i++;
 	}
-	add_to_strs(strs, ft_substr_expand(token, 0, i, envl)); // Add rest
+	add_to_strs(strs, ft_substr_expand(token, 0, i, envl));
 }
 
 char	*expand(char *token, t_list *envl)
