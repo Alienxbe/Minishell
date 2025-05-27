@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 00:26:50 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 16:28:58 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/27 03:57:17 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ static int	get_var_len(const char *str)
 	while (ft_isalnum(str[len]) || str[len] == '_')
 		len++;
 	return (len);
+}
+
+void	add_to_strs(t_list **strs, char *str)
+{
+	t_list	*new;
+
+	if (!str)
+		return ;
+	if (!*str)
+	{
+		free(str);
+		return ;
+	}
+	new = ft_lstnew(str);
+	if (!new)
+		free(str);
+	ft_lstadd_back(strs, new);
 }
 
 static void	s_to_strs(const char *s, size_t len, t_list **strs, t_list *envl)

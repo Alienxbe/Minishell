@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/24 10:04:02 by marykman         ###   ########.fr        #
+#    Updated: 2025/05/27 03:57:47 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,8 +70,7 @@ FILES_BUILTINS		:=	error.c \
 						ft_pwd.c \
 						ft_unset.c
 FILES_EXPANDER		:=	expander.c \
-						utils.c \
-						add_to_strs.c
+						utils.c
 
 SRCS				:=	$(addprefix srcs/, ${FILES})
 SRCS				+=	$(addprefix srcs/parsing/, ${FILES_PARSING})
