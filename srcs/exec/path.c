@@ -3,13 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 17:39:58 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/03 16:24:13 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:25:33 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <unistd.h>
+#include "ft_string.h"
 #include "exec.h"
 
 static char	*find_path(char **paths, char *cmd)

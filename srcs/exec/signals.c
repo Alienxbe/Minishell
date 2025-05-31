@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 14:33:56 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/09 14:29:46 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/30 18:27:41 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
+#include <signal.h>
+#include <readline/readline.h>
 #include "exec.h"
 
 void	handle_sigint(int sig)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 19:28:39 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:55:48 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,7 @@
 # define EXEC_H
 
 # include "ft_list.h"
-# include "minishell.h"
 # include "parsing.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include "ft_memory.h"
-# include "env.h"
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "builtins.h"
-# include "ft_printf.h"
-# include "expander.h"
 
 extern int	g_last_ret;
 void	set_pipes_redirs(t_list *redirs, int cmd_index,

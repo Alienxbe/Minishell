@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 19:28:19 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/31 23:35:55 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include "ft_memory.h"
+#include "env.h"
 #include "builtins.h"
 #include "exec.h"
 
@@ -36,8 +39,8 @@ int	(*init_pipes(int nb_cmds))[2]
 	i = -1;
 	while (++i < nb_cmds - 1)
 	{
-		if (!pipes[i])
-			exit(1);
+		// if (!pipes[i])
+		// 	exit(1);
 		if (pipe(pipes[i]) < 0)
 			exit(1);
 	}

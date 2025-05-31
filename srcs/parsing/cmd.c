@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:19:59 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:26:43 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/31 22:34:49 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 #include "ft_list.h"
 #include "parsing.h"
 
+#include "ft_printf.h"
+
 void	free_cmd(void *cmd)
 {
+	ft_printf("Freein `%s`\n", ((t_cmd *)cmd)->tokens->content);
 	if (!cmd)
 		return ;
 	ft_lstclear(&((t_cmd *)cmd)->tokens, free);

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 00:26:50 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 04:34:37 by marykman         ###   ########.fr       */
+/*   Updated: 2025/05/31 12:25:52 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "ft_ctype.h"
 #include "ft_string.h"
 #include "env.h"
+#include "exec.h"
 #include "expander.h"
 
 #include "ft_printf.h"
@@ -40,6 +41,8 @@ static int	get_var_len(const char *str)
 {
 	int	len;
 
+	if (str[0] == '?')
+		return (1);
 	if (!ft_isalpha(str[0]) && str[0] != '_')
 		return (-1);
 	len = 1;
@@ -54,7 +57,10 @@ static char	*get_var(const char *s, size_t var_pos, t_list *envl)
 	char	*content;
 
 	varname = ft_substr(s, var_pos, get_var_len(s + var_pos));
-	content = env_get_var_content(envl, varname);
+	if (*varname == '?')
+		content = ft_itoa(g_last_ret);
+	else
+		content = env_get_var_content(envl, varname);
 	free(varname);
 	if (!content)
 		content = "";

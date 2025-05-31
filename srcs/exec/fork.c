@@ -3,13 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/27 19:28:04 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/30 22:09:13 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include "ft_string.h"
+#include "ft_printf.h"
+#include "env.h"
+#include "builtins.h"
 #include "exec.h"
 
 int	get_exit_status(int *status)
@@ -57,10 +66,10 @@ void	parent_process(t_list **pids)
 void	access_cmd(char *path, char **to_ex, char **envc)
 {
 	if (!path || access(path, F_OK | X_OK) != 0)
-		return (printf("minishell: %s: command not found\n", to_ex[0]),
+		return (ft_printf("minishell: %s: command not found\n", to_ex[0]),
 			free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127));
 	if (access(path, F_OK) == 0 && access(path, X_OK) != 0)
-		return (printf("minishell: %s: permission denied\n", to_ex[0]),
+		return (ft_printf("minishell: %s: permission denied\n", to_ex[0]),
 			free(path), free_tab(to_ex), free_tab(envc), g_last_ret = 126,
 			exit(126));
 }
@@ -72,7 +81,7 @@ char	*access_program(char **to_ex, char **envc)
 	if (access(to_ex[0], F_OK | X_OK) == 0)
 		path = ft_strdup(to_ex[0]);
 	else
-		return (printf("minishell: %s: command not found\n", to_ex[0]),
+		return (ft_printf("minishell: %s: command not found\n", to_ex[0]),
 			free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127), NULL);
 	return (path);
 }

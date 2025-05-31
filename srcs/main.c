@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 18:37:08 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/05/31 23:36:11 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	main(int argc, char const **argv, char **envp)
 		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
 		free(rl);
 		exec_cmds(&cmd_table, &envl);
+		ft_lstclear(&cmd_table.cmds, free_cmd);
 	}
 	return (EXIT_SUCCESS);
 }
