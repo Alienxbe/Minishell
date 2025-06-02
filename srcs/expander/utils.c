@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 00:26:50 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:10:18 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:14:05 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "env.h"
 #include "exec.h"
 #include "expander.h"
-
-#include "ft_printf.h"
 
 void	add_to_strs(t_list **strs, char *str)
 {
@@ -60,10 +58,10 @@ static char	*get_var(const char *s, size_t var_pos, t_msh *msh)
 	if (*varname == '?')
 		content = ft_itoa(msh->previous_exit_value);
 	else
-		content = env_get_var_content(msh->envl, varname);
+		content = ft_strdup(env_get_var_content(msh->envl, varname));
 	free(varname);
 	if (!content)
-		content = "";
+		content = ft_strdup("");
 	return (content);
 }
 
@@ -80,7 +78,7 @@ static void	s_to_strs(const char *s, size_t len, t_list **strs, t_msh *msh)
 		{
 			add_to_strs(strs, ft_substr(s, var_pos, i - var_pos));
 			var_pos = i + 1;
-			add_to_strs(strs, ft_strdup(get_var(s, var_pos, msh)));
+			add_to_strs(strs, get_var(s, var_pos, msh));
 			i += get_var_len(s + var_pos) + 1;
 			var_pos = i;
 		}

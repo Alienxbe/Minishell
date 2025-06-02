@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 19:02:37 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:10:55 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "env.h"
 #include "builtins.h"
 #include "exec.h"
-
-#include "ft_printf.h"
 
 void	exit_child_process(char **to_ex, char **envc)
 {

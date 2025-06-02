@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:24:04 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:12:20 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:12:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "env.h"
 #include "parsing.h"
 #include "expander.h"
-
-#include "ft_printf.h"
 
 static void	expand_to_strs(char *token, t_list **strs, t_msh *msh)
 {
