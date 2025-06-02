@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/31 23:36:11 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:44:11 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,33 @@
 
 int	main(int argc, char const **argv, char **envp)
 {
-	char		*rl;
-	t_cmd_table	cmd_table;
-	t_list		*envl;
-	// char	*prompt;
+	char	*rl;
+	t_msh	msh;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	envl = strs_to_lst(envp);
-	// printf("%s\n", env_get_var_content(envl, "PWD"));
-	// repl -> read eval print loop
-	while (1)
+	msh.envl = strs_to_lst(envp);
+	msh.exit_value = EXIT_SUCCESS;
+	msh.running = true;
+	while (msh.running)
 	{
 		start_signals();
-		// prompt = ft_strjoinx(3, FT_GREEN"Minishesh "FT_RESETCOL, env_get_var_content(envl, "PWD"), " $ ");
 		rl = readline(PROMPT_STR);
-		// free(prompt);
 		if (!rl)
+		{
+			ft_lstclear(&msh.envl, free);
 			exit(EXIT_FAILURE);
-		add_history(rl);
-		cmd_table.cmds = parsing(rl, envl); // return a linked list of t_cmd
-		cmd_table.cmd_count = ft_lstsize(cmd_table.cmds);
+		}
+		if (*rl)
+			add_history(rl);
+		msh.cmd_table = (t_cmd_table){0};
+		msh.cmd_table.cmds = parsing(rl, &msh);
+		msh.cmd_table.cmd_count = ft_lstsize(msh.cmd_table.cmds);
 		free(rl);
-		exec_cmds(&cmd_table, &envl);
-		ft_lstclear(&cmd_table.cmds, free_cmd);
+		exec_cmds(&msh);
+		msh.previous_exit_value = ((t_cmd *)(ft_lstlast(msh.cmd_table.cmds)->content))->exit_status;
+		ft_lstclear(&msh.cmd_table.cmds, free_cmd);
 	}
-	return (EXIT_SUCCESS);
+	ft_lstclear(&msh.envl, free);
+	return (msh.exit_value);
 }

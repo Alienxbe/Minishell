@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/30 17:57:57 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/01 23:50:03 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,15 @@ int	open_files(t_list *redirs)
 	return (0);
 }
 
-void	set_pipes_redirs(t_list *redirs, int cmd_index,
-		int (*pipes)[2], int nb_cmds)
+void	set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table)
 {
-	if (open_files(redirs))
+	if (open_files(cmd->redirs))
 		return ;
-	if (!is_redir(redirs, REDIR_STDIN) && cmd_index != 0)
-		dup2(pipes[cmd_index - 1][0], STDIN_FILENO);
-	if (!is_redir(redirs, REDIR_STDOUT)
-		&& !is_redir(redirs, REDIR_STDOUT_APPEND) && cmd_index != nb_cmds - 1)
-		dup2(pipes[cmd_index][1], STDOUT_FILENO);
+	if (!is_redir(cmd->redirs, REDIR_STDIN) && cmd->index != 0)
+		dup2(cmd_table->pipes[cmd->index - 1][0], STDIN_FILENO);
+	if (!is_redir(cmd->redirs, REDIR_STDOUT)
+		&& !is_redir(cmd->redirs, REDIR_STDOUT_APPEND) && cmd->index != cmd_table->cmd_count - 1)
+		dup2(cmd_table->pipes[cmd->index][1], STDOUT_FILENO);
 }
 
 /*void	close_files(t_list *redirs)

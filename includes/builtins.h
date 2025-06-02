@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 18:34:02 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:07:07 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "ft_list.h"
 # include "ft_string.h"
+# include "minishell.h"
 
 /*
 ** Builtins prototype will always be similar
@@ -30,7 +31,7 @@
 # define ERROR_MSG_MISSING_HOME			"HOME not set"
 # define ERROR_MSG_MISSING_VAR			"Variable not set"
 
-typedef int	(*t_builtin)(int, char **, t_list **);
+typedef int	(*t_builtin)(int, char **, t_msh *);
 
 typedef enum e_builtin_error
 {
@@ -42,13 +43,13 @@ typedef enum e_builtin_error
 }	t_builtin_error;
 
 t_builtin	get_builtin_by_name(char *name);
-int			ft_echo(int argc, char **argv, t_list **envl);
-int			ft_pwd(int argc, char **argv, t_list **envl);
-int			ft_cd(int argc, char **argv, t_list **envl);
-int			ft_env(int argc, char **argv, t_list **envl);
-int			ft_export(int argc, char **argv, t_list **envl);
-int			ft_unset(int argc, char **argv, t_list **envl);
-int			ft_exit(int argc, char **argv, t_list **envl);
+int			ft_echo(int argc, char **argv, t_msh *msh);
+int			ft_pwd(int argc, char **argv, t_msh *msh);
+int			ft_cd(int argc, char **argv, t_msh *msh);
+int			ft_env(int argc, char **argv, t_msh *msh);
+int			ft_export(int argc, char **argv, t_msh *msh);
+int			ft_unset(int argc, char **argv, t_msh *msh);
+int			ft_exit(int argc, char **argv, t_msh *msh);
 
 int			builtin_print_error(t_builtin_error error, const char *cmd_name,
 	const char *filename);

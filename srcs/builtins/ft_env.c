@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:20:14 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/11 16:58:39 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:50:13 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ static void	print_env_var(void *content)
 	ft_printf("%s\n", (char *)content);
 }
 
-int	ft_env(int argc, char **argv, t_list **envl)
+int	ft_env(int argc, char **argv, t_msh *msh)
 {
 	char	*content;
 
 	(void)argc;
 	(void)argv;
 	if (argc == 1)
-		ft_lstiter(*envl, &print_env_var);
+		ft_lstiter(msh->envl, &print_env_var);
 	else if (argc == 2)
 	{
-		content = env_get_var_content(*envl, argv[1]);
+		content = env_get_var_content(msh->envl, argv[1]);
 		ft_fprintf(2, "%p\n", content);
 		if (content)
 			ft_printf("%s\n", content);

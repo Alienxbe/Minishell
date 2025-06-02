@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 16:16:19 by vpramann          #+#    #+#             */
-/*   Updated: 2025/05/30 22:09:13 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:32:18 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,23 @@ int	get_exit_status(int *status)
 	return (ret);
 }
 
-void	parent_process(t_list **pids)
+void	parent_process(t_list *cmds)
 {
-	long				pid;
-	t_list				*tmp;
+	t_cmd				*cmd;
 	int					status;
 	struct sigaction	sa_old;
-	int					last_ret;
 
 	sigaction(SIGINT, &(struct sigaction){.sa_handler = SIG_IGN}, &sa_old);
-	if (!pids || !*pids)
-		return ;
-	tmp = *pids;
-	while (tmp)
+	while (cmds)
 	{
-		if (!tmp->content)
-			return ;
-		pid = *(long *)(tmp);
-		waitpid(pid, &status, 0);
-		last_ret = get_exit_status(&status);
-		tmp = tmp->next;
+		cmd = cmds->content;
+		if (cmd->pid)
+		{
+			waitpid(cmd->pid, &status, 0);
+			cmd->exit_status = get_exit_status(&status);
+		}
+		cmds = cmds->next;
 	}
-	g_last_ret = last_ret;
-	free_pids(pids);
 	sigaction(SIGINT, &sa_old, NULL);
 	start_signals();
 }
@@ -67,11 +61,10 @@ void	access_cmd(char *path, char **to_ex, char **envc)
 {
 	if (!path || access(path, F_OK | X_OK) != 0)
 		return (ft_printf("minishell: %s: command not found\n", to_ex[0]),
-			free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127));
+			free_tab(to_ex), free_tab(envc), exit(127));
 	if (access(path, F_OK) == 0 && access(path, X_OK) != 0)
 		return (ft_printf("minishell: %s: permission denied\n", to_ex[0]),
-			free(path), free_tab(to_ex), free_tab(envc), g_last_ret = 126,
-			exit(126));
+			free(path), free_tab(to_ex), free_tab(envc), exit(126));
 }
 
 char	*access_program(char **to_ex, char **envc)
@@ -82,33 +75,26 @@ char	*access_program(char **to_ex, char **envc)
 		path = ft_strdup(to_ex[0]);
 	else
 		return (ft_printf("minishell: %s: command not found\n", to_ex[0]),
-			free_tab(to_ex), free_tab(envc), g_last_ret = 127, exit(127), NULL);
+			free_tab(to_ex), free_tab(envc), exit(127), NULL);
 	return (path);
 }
 
-void	child_process(char **to_ex, t_list **envl, int (*pipes)[2], int nb_cmds)
+void	child_process(char **argv, t_cmd_table *cmd_table, t_list **envl)
 {
 	char		**envc;
 	char		*path;
-	t_builtin	builtin;
 
 	start_signals_exec();
-	close_pipes(pipes, nb_cmds);
-	builtin = get_builtin_by_name(to_ex[0]);
+	close_pipes(cmd_table->pipes, cmd_table->cmd_count);
 	envc = lst_to_strs(*envl);
-	if (!to_ex || !to_ex[0])
-		exit_child_process(to_ex, envc);
-	if (builtin)
-	{
-		g_last_ret = builtin(get_string_tab_len(to_ex), to_ex, envl);
-		exit(g_last_ret);
-	}
-	else if (has_absolute_path(to_ex[0]) || has_relative_path(to_ex[0]))
-		path = access_program(to_ex, envc);
+	if (!argv || !argv[0])
+		exit_child_process(argv, envc);
+	else if (has_absolute_path(argv[0]) || has_relative_path(argv[0]))
+		path = access_program(argv, envc);
 	else
-		path = find_cmd_path(to_ex[0], envc);
-	access_cmd(path, to_ex, envc);
-	execve(path, to_ex, envc);
+		path = find_cmd_path(argv[0], envc);
+	access_cmd(path, argv, envc);
+	execve(path, argv, envc);
 	return (perror("execve"), free(path),
-		free_tab(to_ex), free_tab(envc), exit(1));
+		free_tab(argv), free_tab(envc), exit(1));
 }

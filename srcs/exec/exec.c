@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/31 23:35:55 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:28:41 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "builtins.h"
 #include "exec.h"
 
-int	g_last_ret = 0;
+#include "ft_printf.h"
 
 void	exit_child_process(char **to_ex, char **envc)
 {
@@ -47,62 +47,53 @@ int	(*init_pipes(int nb_cmds))[2]
 	return (pipes);
 }
 
-static void	exec(t_cmd_table *cmd_table, t_cmd *cmd,
-					t_list **envl, int (*pipes)[2])
+static void	exec(t_cmd *cmd, t_msh *msh)
 {
-	long	pid;
-	t_list	*new_node;
-	char	**to_ex;
+	char		**argv;
+	t_builtin	f_builtin;
 
-	to_ex = lst_to_strs(cmd->tokens);
-	pid = fork();
-	if (pid == -1)
-		exit(1);
-	else if (pid == 0)
-		child_process(to_ex, envl, pipes, cmd_table->cmd_count);
-	new_node = ft_lstnew((void *)pid);
-	if (!new_node)
-		exit(1);
-	ft_lstadd_back(&cmd_table->pids, new_node);
-	free_tab(to_ex);
+	argv = lst_to_strs(cmd->tokens);
+	if (!argv)
+		return ;
+	f_builtin = get_builtin_by_name(argv[0]);
+	if (f_builtin)
+		cmd->exit_status = f_builtin(ft_lstsize(cmd->tokens), argv, msh);
+	else
+	{
+		cmd->pid = fork();
+		if (cmd->pid == -1)
+			exit(1);
+		else if (cmd->pid == 0)
+			child_process(argv, &msh->cmd_table, &msh->envl);
+	}
+	free_tab(argv);
 }
 
-static void	exec_cmd(t_cmd_table *cmd_table,
-					int cmd_index, t_list **envl, int (*pipes)[2])
+static void	exec_cmd(t_cmd *cmd, t_msh *msh)
 {
-	int		saved_io[2];
-	t_cmd	*cmd;
+	int			saved_io[2];
 
-	cmd = cmd_table->cmds->content;
-	cmd->cmd_index = cmd_index;
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
-	set_pipes_redirs(cmd->redirs, cmd_index, pipes, cmd_table->cmd_count);
-	exec(cmd_table, cmd, envl, pipes);
+	set_pipes_redirs(cmd, &msh->cmd_table);
+	exec(cmd, msh);
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);
 	close(saved_io[1]);
 }
 
-void	exec_cmds(t_cmd_table *cmd_table, t_list **envl)
+void	exec_cmds(t_msh *msh)
 {
-	int		(*pipes)[2];
-	int		i;
-	int		nb_cmds;
+	t_list	*cmd;
 
-	if (!cmd_table || !envl)
-		return ;
-	nb_cmds = cmd_table->cmd_count;
-	cmd_table->pids = NULL;
-	pipes = init_pipes(nb_cmds);
-	i = 0;
-	while (i < nb_cmds)
+	msh->cmd_table.pipes = init_pipes(msh->cmd_table.cmd_count);
+	cmd = msh->cmd_table.cmds;
+	while (cmd)
 	{
-		exec_cmd(cmd_table, i, envl, pipes);
-		cmd_table->cmds = cmd_table->cmds->next;
-		i++;
+		exec_cmd(cmd->content, msh);
+		cmd = cmd->next;
 	}
-	close_pipes(pipes, nb_cmds);
-	parent_process(&cmd_table->pids);
+	close_pipes(msh->cmd_table.pipes, msh->cmd_table.cmd_count);
+	parent_process(msh->cmd_table.cmds);
 }

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 00:26:50 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/31 12:25:52 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:10:18 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,23 +51,23 @@ static int	get_var_len(const char *str)
 	return (len);
 }
 
-static char	*get_var(const char *s, size_t var_pos, t_list *envl)
+static char	*get_var(const char *s, size_t var_pos, t_msh *msh)
 {
 	char	*varname;
 	char	*content;
 
 	varname = ft_substr(s, var_pos, get_var_len(s + var_pos));
 	if (*varname == '?')
-		content = ft_itoa(g_last_ret);
+		content = ft_itoa(msh->previous_exit_value);
 	else
-		content = env_get_var_content(envl, varname);
+		content = env_get_var_content(msh->envl, varname);
 	free(varname);
 	if (!content)
 		content = "";
 	return (content);
 }
 
-static void	s_to_strs(const char *s, size_t len, t_list **strs, t_list *envl)
+static void	s_to_strs(const char *s, size_t len, t_list **strs, t_msh *msh)
 {
 	size_t	i;
 	size_t	var_pos;
@@ -80,7 +80,7 @@ static void	s_to_strs(const char *s, size_t len, t_list **strs, t_list *envl)
 		{
 			add_to_strs(strs, ft_substr(s, var_pos, i - var_pos));
 			var_pos = i + 1;
-			add_to_strs(strs, ft_strdup(get_var(s, var_pos, envl)));
+			add_to_strs(strs, ft_strdup(get_var(s, var_pos, msh)));
 			i += get_var_len(s + var_pos) + 1;
 			var_pos = i;
 		}
@@ -89,8 +89,7 @@ static void	s_to_strs(const char *s, size_t len, t_list **strs, t_list *envl)
 	add_to_strs(strs, ft_substr(s, var_pos, len - var_pos));
 }
 
-char	*ft_substr_expand(char *s, unsigned int start, size_t len,
-	t_list *envl)
+char	*ft_substr_expand(char *s, unsigned int start, size_t len, t_msh *msh)
 {
 	char	*str;
 	t_list	*strs;
@@ -98,7 +97,7 @@ char	*ft_substr_expand(char *s, unsigned int start, size_t len,
 	if (!s || !s[start])
 		return (NULL);
 	strs = NULL;
-	s_to_strs(s + start, len, &strs, envl);
+	s_to_strs(s + start, len, &strs, msh);
 	if (!strs)
 		return (ft_strdup(""));
 	str = ft_lststrjoin(strs, "");

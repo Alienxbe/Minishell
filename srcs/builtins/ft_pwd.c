@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/26 07:22:12 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/11 16:59:17 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:56:41 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include "ft_printf.h"
 #include "builtins.h"
 
-int	ft_pwd(int argc, char **argv, t_list **envl)
+int	ft_pwd(int argc, char **argv, t_msh *msh)
 {
 	char	*pwd;
 
 	(void)argc;
 	(void)argv;
-	(void)envl;
+	(void)msh;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		return (EXIT_FAILURE);

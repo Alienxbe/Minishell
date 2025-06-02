@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/30 17:55:48 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:22:50 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,16 @@
 # define EXEC_H
 
 # include "ft_list.h"
+# include "minishell.h"
 # include "parsing.h"
 
-extern int	g_last_ret;
-void	set_pipes_redirs(t_list *redirs, int cmd_index,
-			int (*pipes)[2], int nb_cmds);
-void	exec_cmds(t_cmd_table *cmd_table, t_list **envl);
+void	exec_cmds(t_msh *msh);
+void	set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table);
 void	free_tab(char **tab);
 char	*find_cmd_path(char *cmd, char **envp);
 void	close_pipes(int (*pipes)[2], int pipe_count);
-void	child_process(char **to_ex, t_list **envl,
-			int (*pipes)[2], int nb_cmds);
-void	parent_process(t_list **pids);
+void	child_process(char **to_ex, t_cmd_table *cmd_table, t_list **envl);
+void	parent_process(t_list *cmds);
 void	close_files(t_list *redirs);
 int		has_absolute_path(char *cmd);
 int		has_relative_path(char *cmd);

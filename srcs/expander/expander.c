@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:24:04 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/27 04:37:00 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:12:20 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #include "ft_printf.h"
 
-static void	expand_to_strs(char *token, t_list **strs, t_list *envl)
+static void	expand_to_strs(char *token, t_list **strs, t_msh *msh)
 {
 	char	*next_quote;
 	size_t	i;
@@ -37,22 +37,22 @@ static void	expand_to_strs(char *token, t_list **strs, t_list *envl)
 				add_to_strs(strs, ft_substr(token, 0, next_quote - token));
 			else if (token[i - 1] == '\"')
 				add_to_strs(strs, ft_substr_expand(token, 0,
-						next_quote - token, envl));
+						next_quote - token, msh));
 			token = next_quote + 1;
 		}
 		else
 			i++;
 	}
-	add_to_strs(strs, ft_substr_expand(token, 0, i, envl));
+	add_to_strs(strs, ft_substr_expand(token, 0, i, msh));
 }
 
-char	*expand(char *token, t_list *envl)
+char	*expand(char *token, t_msh *msh)
 {
 	char	*str;
 	t_list	*strs;
 
 	strs = NULL;
-	expand_to_strs(token, &strs, envl);
+	expand_to_strs(token, &strs, msh);
 	str = ft_lststrjoin(strs, "");
 	ft_lstclear(&strs, free);
 	free(token);

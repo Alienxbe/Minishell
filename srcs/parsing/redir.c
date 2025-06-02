@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:33:58 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/24 21:27:00 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:14:04 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_redir(void *redir)
 	free(redir);
 }
 
-t_redir	*get_redir(const char *input, size_t *pos, t_list *envl)
+t_redir	*get_redir(const char *input, size_t *pos, t_msh *msh)
 {
 	t_redir		*redir;
 	int			len;
@@ -34,6 +34,6 @@ t_redir	*get_redir(const char *input, size_t *pos, t_list *envl)
 	redir->type = (input[*pos] == '>') + ((len - 1) << 1);
 	(*pos) += len;
 	skip_spaces(input, pos);
-	redir->filename = get_token(input, pos, envl);
+	redir->filename = get_token(input, pos, msh);
 	return (redir);
 }

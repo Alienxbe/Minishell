@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:19:59 by marykman          #+#    #+#             */
-/*   Updated: 2025/05/31 22:34:49 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:33:06 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 void	free_cmd(void *cmd)
 {
-	ft_printf("Freein `%s`\n", ((t_cmd *)cmd)->tokens->content);
 	if (!cmd)
 		return ;
 	ft_lstclear(&((t_cmd *)cmd)->tokens, free);
@@ -27,7 +26,7 @@ void	free_cmd(void *cmd)
 	free(cmd);
 }
 
-t_cmd	*get_cmd(const char *input, size_t *pos, t_list *envl)
+t_cmd	*get_cmd(const char *input, size_t *pos, size_t index, t_msh *msh)
 {
 	t_cmd	*cmd;
 	t_bool	ret;
@@ -38,9 +37,9 @@ t_cmd	*get_cmd(const char *input, size_t *pos, t_list *envl)
 	while (input[*pos] && input[*pos] != '|')
 	{
 		if (input[*pos] == '<' || input[*pos] == '>')
-			ret = add_element(&cmd->redirs, get_redir(input, pos, envl));
+			ret = add_element(&cmd->redirs, get_redir(input, pos, msh));
 		else
-			ret = add_element(&cmd->tokens, get_token(input, pos, envl));
+			ret = add_element(&cmd->tokens, get_token(input, pos, msh));
 		if (!ret)
 		{
 			free_cmd(cmd);
@@ -48,5 +47,6 @@ t_cmd	*get_cmd(const char *input, size_t *pos, t_list *envl)
 		}
 		skip_spaces(input, pos);
 	}
+	cmd->index = index;
 	return (cmd);
 }
