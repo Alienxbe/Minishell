@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:33:58 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:14:04 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:02:16 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_redir	*get_redir(const char *input, size_t *pos, t_msh *msh)
 
 	redir = ft_calloc(1, sizeof(*redir));
 	if (!redir)
-		return (NULL);	// EXIT
+		return (NULL);
 	len = 1 + (input[*pos + 1] == '<' || input[*pos + 1] == '>');
 	redir->type = (input[*pos] == '>') + ((len - 1) << 1);
 	(*pos) += len;

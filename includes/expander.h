@@ -6,15 +6,15 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 16:25:54 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:11:13 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 18:45:35 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
-#include "parsing.h"
-#include "minishell.h"
+# include "parsing.h"
+# include "minishell.h"
 
 typedef enum e_expander_error
 {

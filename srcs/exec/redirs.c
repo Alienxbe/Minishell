@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/06/01 23:50:03 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:02:58 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table)
 	if (!is_redir(cmd->redirs, REDIR_STDIN) && cmd->index != 0)
 		dup2(cmd_table->pipes[cmd->index - 1][0], STDIN_FILENO);
 	if (!is_redir(cmd->redirs, REDIR_STDOUT)
-		&& !is_redir(cmd->redirs, REDIR_STDOUT_APPEND) && cmd->index != cmd_table->cmd_count - 1)
+		&& !is_redir(cmd->redirs, REDIR_STDOUT_APPEND)
+		&& cmd->index != cmd_table->cmd_count - 1)
 		dup2(cmd_table->pipes[cmd->index][1], STDOUT_FILENO);
 }
 

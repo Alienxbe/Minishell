@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:35:13 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:12:46 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:01:54 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_expander_error	skip_quotes(const char *input, size_t *len)
 	return (EXPANDER_SUCCESS);
 }
 
-char *get_token(const char *input, size_t *pos, t_msh *msh)
+char	*get_token(const char *input, size_t *pos, t_msh *msh)
 {
 	char	*token;
 	size_t	len;
@@ -52,7 +52,7 @@ char *get_token(const char *input, size_t *pos, t_msh *msh)
 	}
 	token = ft_substr(input, *pos, len);
 	if (!token)
-		return (NULL);	// EXIT
+		return (NULL);
 	*pos += len;
 	token = expand(token, msh);
 	return (token);

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:28:41 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:02:37 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int	(*init_pipes(int nb_cmds))[2]
 	i = -1;
 	while (++i < nb_cmds - 1)
 	{
-		// if (!pipes[i])
-		// 	exit(1);
 		if (pipe(pipes[i]) < 0)
 			exit(1);
 	}

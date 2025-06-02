@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:58:22 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:15:09 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:02:08 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ t_list	*parsing(const char *input, t_msh *msh)
 	}
 	return (cmds);
 }
-
