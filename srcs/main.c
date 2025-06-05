@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
+/*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 23:02:30 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/05 18:50:03 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int	main(int argc, char const **argv, char **envp)
 		rl = readline(PROMPT_STR);
 		if (!rl)
 		{
+			printf("exit\n");
 			ft_lstclear(&msh.envl, free);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		if (*rl)
 			add_history(rl);
