@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 23:02:30 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:49:38 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "expander.h"
 #include "exec.h"
 #include "minishell.h"
+
+#include "ft_printf.h"
 
 static void	incr_shlvl(t_list **envl)
 {
@@ -51,6 +53,7 @@ static t_msh	init_msh(char **envp)
 static void	execute_cmd_table(t_msh *msh)
 {
 	msh->cmd_table.cmd_count = ft_lstsize(msh->cmd_table.cmds);
+	heredoc(msh->cmd_table.cmds, msh);
 	exec_cmds(msh);
 	msh->previous_exit_value = ((t_cmd *)(ft_lstlast(
 					msh->cmd_table.cmds)->content))->exit_status;

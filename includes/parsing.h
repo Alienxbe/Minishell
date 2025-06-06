@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:20:15 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:17:25 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:03:01 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ typedef enum e_redir_type
 ** 	tokens: "ls" "-la"
 ** 	redirection: output->"outfile"
 */
+typedef struct s_redir
+{
+	char			*filename;
+	t_redir_type	type;
+	t_list			*heredoc;
+}	t_redir;
+
 typedef struct s_cmd
 {
 	t_list	*tokens; // ->content = char *
@@ -42,13 +49,6 @@ typedef struct s_cmd
 	int		exit_status;
 	int		pid;
 }	t_cmd;
-
-typedef struct s_redir
-{
-	char			*filename;
-	t_redir_type	type;
-	int				fd_io[2];
-}	t_redir;
 
 // Parsing
 t_list	*parsing(const char *input, t_msh *msh);

@@ -6,13 +6,14 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:36:42 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:46:00 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:41:51 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stddef.h>
 # include "ft_list.h"
 # include "ft_bool.h"
 
@@ -36,5 +37,7 @@ typedef struct s_msh
 	int			previous_exit_value;
 	int			exit_value;
 }	t_msh;
+
+void	heredoc(t_list *cmds, t_msh *msh);
 
 #endif

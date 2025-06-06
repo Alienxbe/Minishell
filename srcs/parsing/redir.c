@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:33:58 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 19:02:16 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:27:06 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_redir(void *redir)
 {
 	if (!redir)
 		return ;
+	ft_lstclear(&((t_redir *)redir)->heredoc, free);
 	free(((t_redir *)redir)->filename);
 	free(redir);
 }

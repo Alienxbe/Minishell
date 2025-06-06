@@ -6,7 +6,7 @@
 #    By: marykman <marykman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/22 22:37:40 by marykman          #+#    #+#              #
-#    Updated: 2025/05/27 04:40:47 by marykman         ###   ########.fr        #
+#    Updated: 2025/06/06 22:29:55 by marykman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,11 +46,13 @@ NAME				:=	minishell
 FILES				:=	minishell.h
 HEADERS				:=	$(addprefix includes/, ${FILES});
 
-FILES				:=	main.c
+FILES				:=	main.c \
+						heredoc.c
 FILES_EXEC			:=	path.c \
 						redirs.c\
 						exec.c \
 						fork.c \
+						heredoc.c \
 						signals.c \
 						utils.c 
 FILES_PARSING		:=	parsing.c \

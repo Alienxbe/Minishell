@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:15:50 by vpramann          #+#    #+#             */
-/*   Updated: 2025/06/02 19:02:58 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:29:35 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int	open_files(t_list *redirs)
 		else if (redir->type == REDIR_STDOUT
 			|| redir->type == REDIR_STDOUT_APPEND)
 			open_outfile(redir, fd_io);
+		else if (redir->type == REDIR_HEREDOC)
+			open_heredoc(redir, fd_io);
 		if (fd_io[0] == -1 || fd_io[1] == -1)
 			return (1);
 		redirs = redirs->next;
@@ -87,7 +89,8 @@ void	set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table)
 {
 	if (open_files(cmd->redirs))
 		return ;
-	if (!is_redir(cmd->redirs, REDIR_STDIN) && cmd->index != 0)
+	if (!is_redir(cmd->redirs, REDIR_STDIN)
+		&& !is_redir(cmd->redirs, REDIR_HEREDOC) && cmd->index != 0)
 		dup2(cmd_table->pipes[cmd->index - 1][0], STDIN_FILENO);
 	if (!is_redir(cmd->redirs, REDIR_STDOUT)
 		&& !is_redir(cmd->redirs, REDIR_STDOUT_APPEND)
