@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/06 22:49:38 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/06 22:56:47 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char const **argv, char **envp)
 		if (!rl)
 		{
 			ft_lstclear(&msh.envl, free);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
 		if (*rl)
 			add_history(rl);
