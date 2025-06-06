@@ -6,7 +6,7 @@
 /*   By: vpramann <vpramann@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/05 18:50:03 by vpramann         ###   ########.fr       */
+/*   Updated: 2025/06/06 14:31:50 by vpramann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	main(int argc, char const **argv, char **envp)
 		rl = readline(PROMPT_STR);
 		if (!rl)
 		{
-			printf("exit\n");
 			ft_lstclear(&msh.envl, free);
 			exit(EXIT_SUCCESS);
 		}
