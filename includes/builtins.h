@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 14:36:33 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 18:48:33 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/07 16:34:38 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@
 ** for easier manipulation
 */
 
-# define ERROR_MSG_TOO_MANY_ARGS "too many arguments"
-# define ERROR_MSG_NO_FILE "No such file or directory"
-# define ERROR_MSG_MISSING_HOME "HOME not set"
-# define ERROR_MSG_MISSING_VAR "Variable not set"
+# define ERROR_MSG_TOO_MANY_ARGS	"too many arguments"
+# define ERROR_MSG_NO_FILE			"No such file or directory"
+# define ERROR_MSG_MISSING_HOME		"HOME not set"
+# define ERROR_MSG_MISSING_VAR		"Variable not set"
+# define ERROR_MSG_NON_NUM_ARG		"numeric argument required"
 
 typedef int	(*t_builtin)(int, char **, t_msh *);
 
@@ -40,6 +41,7 @@ typedef enum e_builtin_error
 	NO_FILE,
 	MISSING_HOME,
 	MISSING_VAR,
+	NON_NUM_ARG,
 	BUILTIN_ERROR_LEN
 }	t_builtin_error;
 
