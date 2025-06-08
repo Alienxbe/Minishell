@@ -6,14 +6,12 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:11:30 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/08 19:26:32 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:27:07 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
 #include <readline/readline.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include "ft_string.h"
 #include "ft_list.h"
 #include "exec.h"
