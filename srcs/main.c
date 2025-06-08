@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 22:12:47 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/06 22:56:47 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:26:17 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include "expander.h"
 #include "exec.h"
 #include "minishell.h"
-
-#include "ft_printf.h"
 
 static void	incr_shlvl(t_list **envl)
 {

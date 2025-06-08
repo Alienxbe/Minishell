@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 23:11:30 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/06 22:49:08 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/08 19:26:32 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <unistd.h>
 #include "ft_string.h"
 #include "ft_list.h"
-#include "ft_printf.h"
-#include "get_next_line.h"
 #include "exec.h"
 #include "expander.h"
 #include "parsing.h"
