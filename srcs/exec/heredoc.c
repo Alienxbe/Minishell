@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/06 22:28:11 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/06 22:31:13 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:05:12 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	write_heredoc_fd(void *content, void *param)
 	ft_fprintf(*fd, "%s\n", str);
 }
 
-void	open_heredoc(t_redir *redir, int *fd_io)
+int	open_heredoc(t_redir *redir, int *fd_io)
 {
 	int	fd_heredoc;
 
@@ -39,13 +39,10 @@ void	open_heredoc(t_redir *redir, int *fd_io)
 		close(fd_io[0]);
 	fd_heredoc = open(".heredoc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd_io[0] == -1)
-	{
-		perror(redir->filename);
-		exit(1);
-	}
+		return (1);
 	ft_lstiterp(redir->heredoc, write_heredoc_fd, &fd_heredoc);
 	close(fd_heredoc);
 	free(redir->filename);
 	redir->filename = ft_strdup(".heredoc");
-	open_infile(redir, fd_io);
+	return (open_infile(redir, fd_io));
 }

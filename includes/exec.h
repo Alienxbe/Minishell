@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:34:21 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/06 22:30:34 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:04:21 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include "parsing.h"
 
 void	exec_cmds(t_msh *msh);
-void	set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table);
+int		set_pipes_redirs(t_cmd *cmd, t_cmd_table *cmd_table);
 int		open_infile(t_redir *redir, int *fd_io);
-void	open_heredoc(t_redir *redir, int *fd_io);
+int		open_heredoc(t_redir *redir, int *fd_io);
 int		open_outfile(t_redir *redir, int *fd_io);
 void	free_tab(char **tab);
 char	*find_cmd_path(char *cmd, char **envp);

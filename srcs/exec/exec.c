@@ -6,12 +6,13 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 21:33:57 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 19:10:55 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/12 17:04:02 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include "ft_printf.h"
 #include "ft_memory.h"
 #include "env.h"
 #include "builtins.h"
@@ -71,8 +72,10 @@ static void	exec_cmd(t_cmd *cmd, t_msh *msh)
 
 	saved_io[0] = dup(STDIN_FILENO);
 	saved_io[1] = dup(STDOUT_FILENO);
-	set_pipes_redirs(cmd, &msh->cmd_table);
-	exec(cmd, msh);
+	if (!set_pipes_redirs(cmd, &msh->cmd_table))
+		exec(cmd, msh);
+	else
+		ft_fprintf(2, "Minishell: Bad redirection\n");
 	dup2(saved_io[0], STDIN_FILENO);
 	dup2(saved_io[1], STDOUT_FILENO);
 	close(saved_io[0]);
