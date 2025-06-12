@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 09:39:43 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 19:09:32 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:42:30 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool	add_element(t_list **lst, void *element)
 	t_list	*new;
 
 	if (!element)
-		return (true);
+		return (false);
 	new = ft_lstnew(element);
 	if (!new)
 	{

@@ -6,7 +6,7 @@
 /*   By: marykman <marykman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 00:26:50 by marykman          #+#    #+#             */
-/*   Updated: 2025/06/02 19:14:05 by marykman         ###   ########.fr       */
+/*   Updated: 2025/06/12 16:43:18 by marykman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,6 @@ void	add_to_strs(t_list **strs, char *str)
 
 	if (!str)
 		return ;
-	if (!*str)
-	{
-		free(str);
-		return ;
-	}
 	new = ft_lstnew(str);
 	if (!new)
 		free(str);
